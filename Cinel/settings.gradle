@@ -1,0 +1,4 @@
+rootProject.name = 'Cinel'
+include 'cinel-api'
+include 'cinel-db'
+include 'cinel-impl'
