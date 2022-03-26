@@ -43,7 +43,7 @@ public class DataBaseConfig {
         entityManagerFactory.setJpaVendorAdapter(adapter);
         entityManagerFactory.setDataSource(dataSource);
         entityManagerFactory.setJpaProperties(hibernateProperties);
-        entityManagerFactory.setPackagesToScan("ru.itis.models");
+        entityManagerFactory.setPackagesToScan("ru.itis.model");
 
         return entityManagerFactory;
     }

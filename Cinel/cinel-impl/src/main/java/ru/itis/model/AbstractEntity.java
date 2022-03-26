@@ -1,9 +1,6 @@
 package ru.itis.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,10 +22,10 @@ public class AbstractEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID uuid;
+    @Column(name = "id")
+    protected UUID uuid;
 
     @CreationTimestamp
     @Column(name = "create_date")
-    private Instant createDate;
-
+    protected Instant createDate;
 }
