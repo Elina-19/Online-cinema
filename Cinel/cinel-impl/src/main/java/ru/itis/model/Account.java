@@ -6,21 +6,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Account extends AbstractEntity{
+public class Account extends AbstractEntity {
+
     @Column(unique = true, nullable = false)
     private String username;
 
+    @Column(unique = true, nullable = false)
     private String email;
-    @Column(name = "hash_password", nullable = false)
 
-    private  String hashPassword;
+    @Column(name = "hash_password", nullable = false)
+    private String hashPassword;
 
     /**Пользователь активен/удален*/
     private Boolean state;
@@ -34,17 +36,18 @@ public class Account extends AbstractEntity{
     /**Для подтверждения по почте*/
     private Boolean confirmed;
 
-    /**Дата окончания(?) жизни ссылки на почте*/
-    @Column(name = "code_expires")
-    private Timestamp codeExpires;
+    /**Дата и время отправления ссылки на почту*/
+    @Column(name = "code_sent")
+    private LocalDateTime codeSent;
 
     /**Код ссылки на почте*/
     private String code;
 
-    private Favourite favourite;
-
-    @ManyToOne
-    @JoinTable(joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
-    @JoinColumn(name = "room_id", referencedColumnName = "id"))
+    @ManyToOne()
+    @JoinColumn(name = "room_id", nullable = false)
     private Room room;
+
+    public enum Role {
+        ADMIN, USER
+    }
 }

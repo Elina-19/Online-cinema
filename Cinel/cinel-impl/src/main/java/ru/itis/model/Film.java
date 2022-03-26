@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Film extends AbstractEntity{
+public class Film extends AbstractEntity {
     @Column(nullable = false)
     private String name;
 
@@ -22,11 +23,11 @@ public class Film extends AbstractEntity{
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "country_id", referencedColumnName = "id"))
-    private List<Country> countries;
+            inverseJoinColumns = @JoinColumn(name = "country_id", referencedColumnName = "id"))
+    private Set<Country> countries;
 
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"),
-    @JoinColumn(name = "film_id", referencedColumnName = "id"))
-    private List<Genre> genres;
+            inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"))
+    private Set<Genre> genres;
 }

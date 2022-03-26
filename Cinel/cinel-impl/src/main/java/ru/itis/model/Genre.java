@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -22,5 +22,5 @@ public class Genre {
     private String name;
 
     @ManyToMany(mappedBy = "genres")
-    private List<Film> films;
+    private Set<Film> films;
 }
