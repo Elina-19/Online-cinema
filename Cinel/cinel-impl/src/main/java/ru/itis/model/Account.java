@@ -1,17 +1,14 @@
 package ru.itis.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.Set;
 
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -50,6 +47,11 @@ public class Account extends AbstractEntity {
     @ManyToOne()
     @JoinColumn(name = "room_id")
     private Room room;
+
+    @ManyToMany()
+    @JoinTable(joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"))
+    private Set<Film> films;
 
     public enum Role {
         ADMIN, USER

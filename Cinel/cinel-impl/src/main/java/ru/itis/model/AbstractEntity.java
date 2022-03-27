@@ -12,8 +12,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.Instant;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @SuperBuilder
 @MappedSuperclass
 @NoArgsConstructor
@@ -23,9 +22,9 @@ public class AbstractEntity {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id")
-    protected UUID uuid;
+    private UUID uuid;
 
     @CreationTimestamp
     @Column(name = "create_date")
-    protected Instant createDate;
+    private Instant createDate;
 }

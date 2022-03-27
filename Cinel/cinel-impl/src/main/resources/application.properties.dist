@@ -11,3 +11,6 @@ hibernate.hbm2ddl.auto=update
 hibernate.format_sql=true
 hibernate.show_sql=true
 hibernate.enable_lazy_load_no_trans=true
+
+#Files
+files.storage.path=
