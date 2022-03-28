@@ -27,5 +27,4 @@ public class FileInfo extends AbstractEntity {
 
     @Column(name = "storage_file_name")
     private String storageFileName;
-
 }

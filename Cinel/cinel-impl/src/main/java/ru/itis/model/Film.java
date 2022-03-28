@@ -34,7 +34,4 @@ public class Film extends AbstractEntity {
     @JoinTable(joinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
     private Set<Genre> genres;
-
-    @ManyToMany(mappedBy = "films")
-    private Set<Account> accounts;
 }

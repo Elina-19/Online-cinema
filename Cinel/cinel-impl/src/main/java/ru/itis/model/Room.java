@@ -4,11 +4,10 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
-
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = "accounts")
+@EqualsAndHashCode(callSuper = true, exclude = "accounts")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,5 +22,5 @@ public class Room extends AbstractEntity{
     private String code;
 
     @OneToMany(mappedBy = "room")
-    private List<Account> accounts;
+    private Set<Account> accounts;
 }
