@@ -2,6 +2,7 @@ package ru.itis.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -85,4 +86,11 @@ public class DataBaseConfig {
         return adapter;
     }
 
+    @Bean
+    public SpringLiquibase liquibase() {
+        SpringLiquibase liquibase = new SpringLiquibase();
+        liquibase.setChangeLog("classpath:changelog/database_cinel_changelog.xml");
+        liquibase.setDataSource(dataSource(hikariConfig()));
+        return liquibase;
+    }
 }

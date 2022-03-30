@@ -35,6 +35,7 @@ public class Account extends AbstractEntity {
     private String token;
 
     /**Для подтверждения по почте*/
+    @Column(columnDefinition = "boolean default false")
     private Boolean confirmed;
 
     /**Дата и время отправления ссылки на почту*/
@@ -42,6 +43,7 @@ public class Account extends AbstractEntity {
     private LocalDateTime codeSent;
 
     /**Код ссылки на почте*/
+    @Column(nullable = false)
     private String code;
 
     @ManyToOne()

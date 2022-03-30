@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Элина (generated)" id="1648640751224-1">
+        <createTable tableName="account">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code_sent" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column defaultValueBoolean="false" name="confirmed" type="BOOL"/>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="hash_password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(255)"/>
+            <column name="state" type="BOOL"/>
+            <column name="token" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="room_id" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-2">
+        <createTable tableName="account_film">
+            <column name="account_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="film_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-3">
+        <createTable tableName="country">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-4">
+        <createTable tableName="file_info">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="mime_type" type="VARCHAR(255)"/>
+            <column name="original_file_name" type="VARCHAR(255)"/>
+            <column name="size" type="BIGINT"/>
+            <column name="storage_file_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-5">
+        <createTable tableName="film">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="INT"/>
+            <column name="file_info_id" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-6">
+        <createTable tableName="film_country">
+            <column name="film_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-7">
+        <createTable tableName="film_genre">
+            <column name="film_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-8">
+        <createTable tableName="genre">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-9">
+        <createTable tableName="room">
+            <column name="id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="state" type="BOOL"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-10">
+        <addPrimaryKey columnNames="account_id, film_id" constraintName="account_film_pkey" tableName="account_film"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-11">
+        <addPrimaryKey columnNames="id" constraintName="account_pkey" tableName="account"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-12">
+        <addPrimaryKey columnNames="id" constraintName="country_pkey" tableName="country"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-13">
+        <addPrimaryKey columnNames="id" constraintName="file_info_pkey" tableName="file_info"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-14">
+        <addPrimaryKey columnNames="film_id, country_id" constraintName="film_country_pkey" tableName="film_country"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-15">
+        <addPrimaryKey columnNames="film_id, genre_id" constraintName="film_genre_pkey" tableName="film_genre"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-16">
+        <addPrimaryKey columnNames="id" constraintName="film_pkey" tableName="film"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-17">
+        <addPrimaryKey columnNames="id" constraintName="genre_pkey" tableName="genre"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-18">
+        <addPrimaryKey columnNames="id" constraintName="room_pkey" tableName="room"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-19">
+        <addUniqueConstraint columnNames="email" constraintName="uk_cs5bnaggwuluahrdh8mbs1rpe" tableName="account"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-20">
+        <addUniqueConstraint columnNames="username" constraintName="uk_de34gsw4qt8auhffbna969ahp" tableName="account"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-21">
+        <addForeignKeyConstraint baseColumnNames="country_id" baseTableName="film_country" constraintName="fk4n3gpr0k1nrlew3g3sn11o9ph" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="country"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-22">
+        <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="account_film" constraintName="fk6i0jpa2lbh3v91hrqij2t307r" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="account"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-23">
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="film_genre" constraintName="fk9pyu2d2t5y5f2issh5jp94212" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="genre"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-24">
+        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="account" constraintName="fki3mkdqujlc6xf2in7oox9gwfu" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-25">
+        <addForeignKeyConstraint baseColumnNames="film_id" baseTableName="film_country" constraintName="fkibwgd7xpn9lheav56dodc0053" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="film"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-26">
+        <addForeignKeyConstraint baseColumnNames="film_id" baseTableName="account_film" constraintName="fkjl850pat1w89qcjjod49y7gmq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="film"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-27">
+        <addForeignKeyConstraint baseColumnNames="film_id" baseTableName="film_genre" constraintName="fkl8w7lq3ueu2hiejvxm1tdclyo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="film"/>
+    </changeSet>
+    <changeSet author="Элина (generated)" id="1648640751224-28">
+        <addForeignKeyConstraint baseColumnNames="file_info_id" baseTableName="film" constraintName="fklfn94kgi4dxpkb1gjlme43kuj" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="file_info"/>
+    </changeSet>
+</databaseChangeLog>

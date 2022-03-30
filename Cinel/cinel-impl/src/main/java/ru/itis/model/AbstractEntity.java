@@ -21,8 +21,7 @@ public class AbstractEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id")
-    private UUID uuid;
+    private UUID id;
 
     @CreationTimestamp
     @Column(name = "create_date")
