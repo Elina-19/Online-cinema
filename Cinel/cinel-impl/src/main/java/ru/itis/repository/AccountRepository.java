@@ -5,5 +5,5 @@ import ru.itis.model.Account;
 
 import java.util.UUID;
 
-public interface AccountsRepository extends JpaRepository<Account, UUID> {
+public interface AccountRepository extends JpaRepository<Account, UUID> {
 }

@@ -26,7 +26,8 @@ public class Account extends AbstractEntity {
     private String hashPassword;
 
     /**Пользователь активен/удален*/
-    private Boolean state;
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;

@@ -16,7 +16,8 @@ import java.util.Set;
 public class Room extends AbstractEntity{
 
     /**Активна или нет комната*/
-    private Boolean state;
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     /**Код для присоединения к комнате*/
     private String code;
