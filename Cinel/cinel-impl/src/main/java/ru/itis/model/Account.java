@@ -52,7 +52,8 @@ public class Account extends AbstractEntity {
     private Room room;
 
     @ManyToMany()
-    @JoinTable(joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+    @JoinTable(name = "account_film",
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"))
     private Set<Film> films;
 

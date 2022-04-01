@@ -1,0 +1,442 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1648799068930-1
+      author: Элина (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: code
+                  type: VARCHAR(255)
+              - column:
+                  name: code_sent
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  defaultValueBoolean: false
+                  name: confirmed
+                  type: BOOL
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: email
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: hash_password
+                  type: VARCHAR(255)
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+              - column:
+                  name: state
+                  type: BOOL
+              - column:
+                  name: token
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: username
+                  type: VARCHAR(255)
+              - column:
+                  name: room_id
+                  type: UUID
+            tableName: account
+  - changeSet:
+      id: 1648799068930-2
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: account_id
+                  type: UUID
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: film_id
+                  type: UUID
+            tableName: account_film
+  - changeSet:
+      id: 1648799068930-3
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: name
+                  type: VARCHAR(255)
+            tableName: country
+  - changeSet:
+      id: 1648799068930-4
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: mime_type
+                  type: VARCHAR(255)
+              - column:
+                  name: original_file_name
+                  type: VARCHAR(255)
+              - column:
+                  name: size
+                  type: BIGINT
+              - column:
+                  name: storage_file_name
+                  type: VARCHAR(255)
+            tableName: file_info
+  - changeSet:
+      id: 1648799068930-5
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: year
+                  type: INT
+              - column:
+                  name: file_info_id
+                  type: UUID
+            tableName: film
+  - changeSet:
+      id: 1648799068930-6
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: film_id
+                  type: UUID
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: country_id
+                  type: UUID
+            tableName: film_country
+  - changeSet:
+      id: 1648799068930-7
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: film_id
+                  type: UUID
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: genre_id
+                  type: UUID
+            tableName: film_genre
+  - changeSet:
+      id: 1648799068930-8
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: name
+                  type: VARCHAR(255)
+            tableName: genre
+  - changeSet:
+      id: 1648799068930-9
+      author: ����� (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+              - column:
+                  name: code
+                  type: VARCHAR(255)
+              - column:
+                  name: state
+                  type: BOOL
+            tableName: room
+  - changeSet:
+      id: 1648799068930-10
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: account_id, film_id
+            constraintName: account_film_pkey
+            tableName: account_film
+  - changeSet:
+      id: 1648799068930-11
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: account_pkey
+            tableName: account
+  - changeSet:
+      id: 1648799068930-12
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: country_pkey
+            tableName: country
+  - changeSet:
+      id: 1648799068930-13
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: file_info_pkey
+            tableName: file_info
+  - changeSet:
+      id: 1648799068930-14
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: film_id, country_id
+            constraintName: film_country_pkey
+            tableName: film_country
+  - changeSet:
+      id: 1648799068930-15
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: film_id, genre_id
+            constraintName: film_genre_pkey
+            tableName: film_genre
+  - changeSet:
+      id: 1648799068930-16
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: film_pkey
+            tableName: film
+  - changeSet:
+      id: 1648799068930-17
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: genre_pkey
+            tableName: genre
+  - changeSet:
+      id: 1648799068930-18
+      author: ����� (generated)
+      changes:
+        - addPrimaryKey:
+            columnNames: id
+            constraintName: room_pkey
+            tableName: room
+  - changeSet:
+      id: 1648799068930-19
+      author: ����� (generated)
+      changes:
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: uk_cs5bnaggwuluahrdh8mbs1rpe
+            tableName: account
+  - changeSet:
+      id: 1648799068930-20
+      author: ����� (generated)
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: uk_de34gsw4qt8auhffbna969ahp
+            tableName: account
+  - changeSet:
+      id: 1648799068930-21
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: country_id
+            baseTableName: film_country
+            constraintName: fk4n3gpr0k1nrlew3g3sn11o9ph
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: country
+  - changeSet:
+      id: 1648799068930-22
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: account_id
+            baseTableName: account_film
+            constraintName: fk6i0jpa2lbh3v91hrqij2t307r
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: account
+  - changeSet:
+      id: 1648799068930-23
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: genre_id
+            baseTableName: film_genre
+            constraintName: fk9pyu2d2t5y5f2issh5jp94212
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: genre
+  - changeSet:
+      id: 1648799068930-24
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: room_id
+            baseTableName: account
+            constraintName: fki3mkdqujlc6xf2in7oox9gwfu
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: room
+  - changeSet:
+      id: 1648799068930-25
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: film_id
+            baseTableName: film_country
+            constraintName: fkibwgd7xpn9lheav56dodc0053
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: film
+  - changeSet:
+      id: 1648799068930-26
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: film_id
+            baseTableName: account_film
+            constraintName: fkjl850pat1w89qcjjod49y7gmq
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: film
+  - changeSet:
+      id: 1648799068930-27
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: film_id
+            baseTableName: film_genre
+            constraintName: fkl8w7lq3ueu2hiejvxm1tdclyo
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: film
+  - changeSet:
+      id: 1648799068930-28
+      author: ����� (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: file_info_id
+            baseTableName: film
+            constraintName: fklfn94kgi4dxpkb1gjlme43kuj
+            deferrable: false
+            initiallyDeferred: false
+            onDelete: NO ACTION
+            onUpdate: NO ACTION
+            referencedColumnNames: id
+            referencedTableName: file_info
