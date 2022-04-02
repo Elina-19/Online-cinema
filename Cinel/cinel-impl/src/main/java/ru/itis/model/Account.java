@@ -44,20 +44,16 @@ public class Account extends AbstractEntity {
     private LocalDateTime codeSent;
 
     /**Код ссылки на почте*/
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String code;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "room_id")
-    private Room room;
+    private Room currentRoom;
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "account_film",
             joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"))
-    private Set<Film> films;
-
-    public enum Role {
-        ADMIN, USER
-    }
+    private Set<Film> favouriteFilms;
 }

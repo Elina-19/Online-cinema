@@ -20,8 +20,9 @@ public class Room extends AbstractEntity{
     private Boolean isActive;
 
     /**Код для присоединения к комнате*/
+    @Column(nullable = false, unique = true, columnDefinition = "boolean default true")
     private String code;
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "currentRoom")
     private Set<Account> accounts;
 }
