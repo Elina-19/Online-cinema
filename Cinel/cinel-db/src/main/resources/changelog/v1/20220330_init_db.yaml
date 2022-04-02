@@ -1,0 +1,294 @@
+databaseChangeLog:
+  - changeSet:
+      id: create room table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: room
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_room
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: code
+                  type: VARCHAR(50)
+                  constraints:
+                    constraints:
+                      nullable: false
+                      unique: true
+                      uniqueConstraintName: uk_room_code
+              - column:
+                  name: is_active
+                  type: BOOL
+                  defaultValueBoolean: true
+  - changeSet:
+      id: create account table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_account
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      unique: true
+                      uniqueConstraintName: uk_account_code
+                  name: code
+                  type: VARCHAR(100)
+              - column:
+                  name: code_sent
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  defaultValueBoolean: false
+                  name: confirmed
+                  type: BOOL
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      unique: true
+                      uniqueConstraintName: uk_account_email
+                  name: email
+                  type: VARCHAR(100)
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: hash_password
+                  type: VARCHAR(100)
+              - column:
+                  name: role
+                  type: VARCHAR(20)
+              - column:
+                  name: is_active
+                  type: BOOL
+              - column:
+                  name: token
+                  type: VARCHAR(100)
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      unique: true
+                      uniqueConstraintName: uk_account_username
+                  name: username
+                  type: VARCHAR(50)
+              - column:
+                  name: room_id
+                  type: UUID
+                  constraints:
+                    constraints:
+                      foreignKeyName: fk_account_room_id
+                      references: room(id)
+  - changeSet:
+      id: create file_info table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: file_info
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_file_info
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: mime_type
+                  type: VARCHAR(50)
+              - column:
+                  name: original_file_name
+                  type: VARCHAR(100)
+              - column:
+                  name: size
+                  type: BIGINT
+              - column:
+                  name: storage_file_name
+                  type: VARCHAR(150)
+  - changeSet:
+      id: create film table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: film
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_film
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: name
+                  type: VARCHAR(100)
+              - column:
+                  name: year
+                  type: INT
+              - column:
+                  name: file_info_id
+                  type: UUID
+                  constraints:
+                    constraints:
+                      foreignKeyName: fk_film_file_info_id
+                      references: file_info(id)
+  - changeSet:
+      id: create account_film table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: account_film
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_account_film_account_id
+                      references: account(id)
+                  name: account_id
+                  type: UUID
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_account_film_film_id
+                      references: film(id)
+                  name: film_id
+                  type: UUID
+  - changeSet:
+      id: create country table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: country
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_country
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: name
+                  type: VARCHAR(150)
+  - changeSet:
+      id: create film_country table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: film_country
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_film_country_film_id
+                      references: film(id)
+                  name: film_id
+                  type: UUID
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_film_country_country_id
+                      references: country(id)
+                  name: country_id
+                  type: UUID
+  - changeSet:
+      id: create genre table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: genre
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      primaryKey: true
+                      primaryKeyName: pk_genre
+                  name: id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                  name: name
+                  type: VARCHAR(50)
+  - changeSet:
+      id: create film_genre table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: film_genre
+            addPrimaryKey:
+              columnNames: film_id, genre_id
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_film_genre_film_id
+                      references: film(id)
+                  name: film_id
+                  type: UUID
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_film_genre_genre_id
+                      references: genre(id)
+                  name: genre_id
+                  type: UUID

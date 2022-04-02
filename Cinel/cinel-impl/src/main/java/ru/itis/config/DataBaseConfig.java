@@ -89,7 +89,7 @@ public class DataBaseConfig {
     @Bean
     public SpringLiquibase liquibase() {
         SpringLiquibase liquibase = new SpringLiquibase();
-        liquibase.setChangeLog("classpath:changelog/database_cinel_changelog.xml");
+        liquibase.setChangeLog("classpath:changelog/database_cinel_changelog.yaml");
         liquibase.setDataSource(dataSource(hikariConfig()));
         return liquibase;
     }

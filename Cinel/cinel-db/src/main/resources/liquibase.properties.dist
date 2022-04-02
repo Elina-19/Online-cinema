@@ -1,6 +1,0 @@
-url=jdbc:postgresql://localhost:5432/database
-username=postgres
-password=password
-driver=org.postgresql.Driver
-
-outputChangeLogFile=cinel-db/src/main/resources/changelog/v1/20220330_init_db.xml

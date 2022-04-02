@@ -26,7 +26,8 @@ public class Account extends AbstractEntity {
     private String hashPassword;
 
     /**Пользователь активен/удален*/
-    private Boolean state;
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
@@ -43,19 +44,16 @@ public class Account extends AbstractEntity {
     private LocalDateTime codeSent;
 
     /**Код ссылки на почте*/
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String code;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "room_id")
-    private Room room;
+    private Room currentRoom;
 
-    @ManyToMany()
-    @JoinTable(joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+    @ManyToMany
+    @JoinTable(name = "account_film",
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"))
-    private Set<Film> films;
-
-    public enum Role {
-        ADMIN, USER
-    }
+    private Set<Film> favouriteFilms;
 }
