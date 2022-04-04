@@ -1,0 +1,16 @@
+#DB Properties
+db.url=jdbc:postgresql://localhost:5432/cinel_db
+db.user=postgres
+db.password=
+db.driver-class-name=org.postgresql.Driver
+db.hikari.pool-size=20
+
+#Hibernate Configuration
+hibernate.dialect=org.hibernate.dialect.PostgreSQL10Dialect
+hibernate.hbm2ddl.auto=none
+hibernate.format_sql=true
+hibernate.show_sql=true
+hibernate.enable_lazy_load_no_trans=true
+
+#Files
+files.storage.path=
