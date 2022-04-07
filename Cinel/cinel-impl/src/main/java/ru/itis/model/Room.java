@@ -23,6 +23,15 @@ public class Room extends AbstractEntity{
     @Column(nullable = false, unique = true, columnDefinition = "boolean default true")
     private String code;
 
-    @OneToMany(mappedBy = "currentRoom")
+    //@OneToMany(mappedBy = "currentRoom")
+    @ManyToMany(mappedBy = "rooms")
     private Set<Account> accounts;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id", nullable = false)
+    private Account admin;
+
+    @ManyToOne
+    @JoinColumn(name = "film_id")
+    private Film currentFilm;
 }

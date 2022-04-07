@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: add columns to room
+      author: Элина
+      changes:
+        - addColumn:
+            tableName: room
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_room_account_id
+                      references: account(id)
+                  name: account_id
+                  type: UUID
+        - addColumn:
+            tableName: room
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      foreignKeyName: fk_room_film_id
+                      references: film(id)
+                  name: film_id
+                  type: UUID
+  - changeSet:
+      id: change relation between account and room
+      author: Элина
+      changes:
+        - dropColumn:
+            tableName: account
+            columns:
+              - column:
+                  name: room_id
+        - createTable:
+            tableName: account_room
+            columns:
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_account_room_account_id
+                      references: account(id)
+                  name: account_id
+                  type: UUID
+              - column:
+                  constraints:
+                    constraints:
+                      nullable: false
+                      foreignKeyName: fk_account_room_room_id
+                      references: room(id)
+                  name: room_id
+                  type: UUID
