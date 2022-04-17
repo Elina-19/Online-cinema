@@ -23,12 +23,12 @@ public class RoomController implements RoomApi {
 
     @Override
     public RoomExtendedResponse getRoom(UUID roomId) {
-        return roomService.getRoomById(roomId);
+        return roomService.getRoomExtendedResponseById(roomId);
     }
 
     @Override
     public void deleteRoom(UUID roomId) {
-        roomService.deleteRoom(roomId);
+        roomService.makeRoomInactive(roomId);
     }
 
     @Override

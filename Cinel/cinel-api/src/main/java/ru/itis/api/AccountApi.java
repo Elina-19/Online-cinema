@@ -17,5 +17,5 @@ public interface AccountApi {
 
     @DeleteMapping(value = "/{account-id}/room")
     @ResponseStatus(HttpStatus.OK)
-    void leftRoom(@PathVariable("account-id") UUID accountId, @RequestParam UUID roomId);
+    void leaveRoom(@PathVariable("account-id") UUID accountId, @RequestParam UUID roomId);
 }

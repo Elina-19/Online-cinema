@@ -20,7 +20,7 @@ public class AccountController implements AccountApi {
     }
 
     @Override
-    public void leftRoom(UUID accountId, UUID roomId) {
+    public void leaveRoom(UUID accountId, UUID roomId) {
         accountService.leftRoom(accountId, roomId);
     }
 }

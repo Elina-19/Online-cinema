@@ -47,10 +47,6 @@ public class Account extends AbstractEntity {
     @Column(nullable = false, unique = true)
     private String code;
 
-//    @ManyToOne
-//    @JoinColumn(name = "room_id")
-//    private Room currentRoom;
-
     /**Комнаты, в которых состоит пользователь*/
     @ManyToMany
     @JoinTable(name = "account_room",

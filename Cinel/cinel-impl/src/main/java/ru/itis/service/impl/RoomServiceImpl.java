@@ -7,16 +7,14 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.itis.dto.request.RoomRequest;
 import ru.itis.dto.response.RoomExtendedResponse;
 import ru.itis.dto.response.RoomResponse;
-import ru.itis.exception.AccountNotExistException;
-import ru.itis.exception.FilmNotExistException;
 import ru.itis.exception.RoomNotExistException;
 import ru.itis.exception.RoomNotFoundException;
 import ru.itis.model.Account;
 import ru.itis.model.Film;
 import ru.itis.model.Room;
-import ru.itis.repository.AccountRepository;
-import ru.itis.repository.FilmRepository;
 import ru.itis.repository.RoomRepository;
+import ru.itis.service.AccountService;
+import ru.itis.service.FilmService;
 import ru.itis.service.RoomService;
 import ru.itis.utils.mapper.RoomMapper;
 
@@ -29,18 +27,16 @@ public class RoomServiceImpl implements RoomService {
     private final static int CODE_LENGTH = 10;
 
     private final RoomRepository roomRepository;
-    private final AccountRepository accountRepository;
-    private final FilmRepository filmRepository;
+
+    private final AccountService accountService;
+    private final FilmService filmService;
 
     private final RoomMapper roomMapper;
 
     @Transactional
     @Override
     public RoomResponse createRoom(RoomRequest room) {
-        Account account = accountRepository
-                .findById(room.getAdminId())
-                .orElseThrow(()
-                        -> new AccountNotExistException(room.getAdminId()));
+        Account account = accountService.getById(room.getAdminId());
 
         Room newRoom = Room.builder()
                 .admin(account)
@@ -51,7 +47,7 @@ public class RoomServiceImpl implements RoomService {
         newRoom = roomRepository.save(newRoom);
 
         account.getRooms().add(newRoom);
-        accountRepository.save(account);
+        accountService.save(account);
 
         return roomMapper.toResponse(newRoom);
     }
@@ -67,15 +63,21 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public RoomExtendedResponse getRoomById(UUID roomId) {
+    public RoomExtendedResponse getRoomExtendedResponseById(UUID roomId) {
         return  roomMapper.toExtendedResponse(
                 roomRepository.findById(roomId)
                         .orElseThrow(RoomNotFoundException::new));
     }
 
+    @Override
+    public Room getRoomById(UUID roomId) {
+        return roomRepository.findById(roomId)
+                .orElseThrow(RoomNotFoundException::new);
+    }
+
     @Transactional
     @Override
-    public void deleteRoom(UUID roomId) {
+    public void makeRoomInactive(UUID roomId) {
         Room room = roomRepository.findById(roomId)
                 .orElseThrow(() -> new RoomNotExistException(roomId));
 
@@ -86,10 +88,7 @@ public class RoomServiceImpl implements RoomService {
     @Transactional
     @Override
     public RoomExtendedResponse changeFilm(UUID roomId, UUID filmId) {
-        Film film = filmRepository
-                .findById(filmId)
-                .orElseThrow(()
-                        -> new FilmNotExistException(filmId));
+        Film film = filmService.getById(filmId);
 
         Room room = roomRepository
                 .findById(roomId)
@@ -100,5 +99,12 @@ public class RoomServiceImpl implements RoomService {
 
         return  roomMapper.toExtendedResponse(
                 roomRepository.save(room));
+    }
+
+    @Override
+    public Room getRoomByCode(String code) {
+        return roomRepository
+                .findRoomByCode(code)
+                .orElseThrow(RoomNotFoundException::new);
     }
 }

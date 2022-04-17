@@ -8,10 +8,9 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_room_account_id
-                      references: account(id)
+                    nullable: false
+                    foreignKeyName: fk_room_account_id
+                    references: account(id)
                   name: account_id
                   type: UUID
         - addColumn:
@@ -19,9 +18,8 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      foreignKeyName: fk_room_film_id
-                      references: film(id)
+                    foreignKeyName: fk_room_film_id
+                    references: film(id)
                   name: film_id
                   type: UUID
   - changeSet:
@@ -38,17 +36,15 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_account_room_account_id
-                      references: account(id)
+                    nullable: false
+                    foreignKeyName: fk_account_room_account_id
+                    references: account(id)
                   name: account_id
                   type: UUID
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_account_room_room_id
-                      references: room(id)
+                    nullable: false
+                    foreignKeyName: fk_account_room_room_id
+                    references: room(id)
                   name: room_id
                   type: UUID
