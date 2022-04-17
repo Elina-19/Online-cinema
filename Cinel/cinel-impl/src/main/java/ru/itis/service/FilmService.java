@@ -1,11 +1,10 @@
 package ru.itis.service;
 
-import ru.itis.dto.response.FilmResponse;
-
-import java.util.List;
+import ru.itis.dto.request.FilterSearchRequest;
+import ru.itis.dto.response.FilmPage;
 
 public interface FilmService {
 
-    List<FilmResponse> getFilmsByName(String name);
+    FilmPage getFilms(FilterSearchRequest filmRequest, Integer page);
 
 }
