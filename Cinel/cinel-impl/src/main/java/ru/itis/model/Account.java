@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = {"adminRooms", "rooms"})
+@EqualsAndHashCode(callSuper = true, exclude = {"adminRooms", "rooms"})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -47,9 +47,16 @@ public class Account extends AbstractEntity {
     @Column(nullable = false, unique = true)
     private String code;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private Room currentRoom;
+    /**Комнаты, в которых состоит пользователь*/
+    @ManyToMany
+    @JoinTable(name = "account_room",
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id", referencedColumnName = "id"))
+    private Set<Room> rooms;
+
+    /**Комнаты, в которых пользователь является админом*/
+    @OneToMany(mappedBy = "admin")
+    private Set<Room> adminRooms;
 
     @ManyToMany
     @JoinTable(name = "account_film",
