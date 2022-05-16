@@ -14,3 +14,8 @@ hibernate.enable_lazy_load_no_trans=true
 
 #Files
 files.storage.path=
+
+#jwt
+jwt.secret=secret_key
+jwt.expiration.access.mills=600000
+jwt.expiration.refresh.mills=86400000
