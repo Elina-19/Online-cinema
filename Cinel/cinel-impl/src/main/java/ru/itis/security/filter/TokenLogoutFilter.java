@@ -1,5 +1,6 @@
 package ru.itis.security.filter;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -14,16 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@RequiredArgsConstructor
 public class TokenLogoutFilter extends OncePerRequestFilter {
 
-    private BlackListService blackListService;
+    private final BlackListService blackListService;
 
-    @Autowired
-    private void setBlackListRepository(BlackListService blackListService){
-        this.blackListService = blackListService;
-    }
-
-    private final static RequestMatcher logoutRequest = new AntPathRequestMatcher("/logout", "GET");
+    private final static RequestMatcher logoutRequest = new AntPathRequestMatcher("/api/v1/logout", "GET");
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

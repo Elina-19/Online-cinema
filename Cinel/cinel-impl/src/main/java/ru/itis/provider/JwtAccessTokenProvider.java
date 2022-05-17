@@ -12,7 +12,7 @@ public interface JwtAccessTokenProvider {
 
     String generateAccessToken(String subject, Map<String, Object> data);
 
-    boolean validateAccessToken(String accessToken, String subject);
+    boolean validateAccessToken(String accessToken);
 
     AccountResponse userInfoByToken(String token);
 

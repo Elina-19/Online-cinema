@@ -45,6 +45,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     @Override
+    public boolean validateAccessToken(String accessToken) {
+        return jwtAccessTokenProvider.validateAccessToken(accessToken);
+    }
+
+    @Override
     public TokenCoupleResponse refreshAccessToken(TokenCoupleDto tokenCoupleDto) {
         String role = jwtAccessTokenProvider.getRoleFromAccessToken(
                 tokenCoupleDto.getAccessToken()

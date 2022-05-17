@@ -13,4 +13,6 @@ public interface JwtTokenService {
 
     TokenCoupleResponse generateTokenCouple(AccountResponse accountResponse);
 
+    boolean validateAccessToken(String accessToken);
+
 }

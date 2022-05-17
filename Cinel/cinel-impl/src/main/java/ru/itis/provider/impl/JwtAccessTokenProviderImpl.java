@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import ru.itis.dto.enums.Role;
 import ru.itis.dto.response.AccountResponse;
 import ru.itis.exception.AuthenticationHeaderException;
+import ru.itis.exception.IrrelevantTokenException;
 import ru.itis.provider.JwtAccessTokenProvider;
 import ru.itis.repository.BlackListRepository;
 import ru.itis.service.AccountService;
@@ -49,14 +50,12 @@ public class JwtAccessTokenProviderImpl implements JwtAccessTokenProvider {
     }
 
     @Override
-    public boolean validateAccessToken(String accessToken, String subject) {
+    public boolean validateAccessToken(String accessToken) {
         try {
             Claims claims = parseAccessToken(accessToken);
-            String subjectFromToken = claims.getSubject();
             Date date = claims.getExpiration();
 
-            return  subject.equals(subjectFromToken) &&
-                    date.after(new Date()) &&
+            return  date.after(new Date()) &&
                     !blackListService.exists(accessToken);
         } catch (ExpiredJwtException e) {
             throw new AuthenticationHeaderException("Token expired date error");
@@ -66,6 +65,10 @@ public class JwtAccessTokenProviderImpl implements JwtAccessTokenProvider {
 
     @Override
     public AccountResponse userInfoByToken(String token) {
+        if (blackListService.exists(token)){
+            throw new IrrelevantTokenException(token, "Token is irrelevant");
+        }
+
         try {
             Claims claims = parseAccessToken(token);
             String subject = claims.getSubject();
@@ -75,7 +78,6 @@ public class JwtAccessTokenProviderImpl implements JwtAccessTokenProvider {
         } catch (ExpiredJwtException e) {
             throw new AuthenticationHeaderException("Token expired date error");
         }
-
     }
 
     @Override

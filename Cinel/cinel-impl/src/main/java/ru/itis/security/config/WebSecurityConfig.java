@@ -19,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import ru.itis.security.filter.TokenAuthorizationFilter;
 import ru.itis.security.filter.TokenLogoutFilter;
 import ru.itis.security.userdetails.TokenAuthenticationUserDetailsService;
+import ru.itis.service.BlackListService;
 import ru.itis.service.JwtTokenService;
 
 import java.util.Collections;
@@ -30,6 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final TokenAuthenticationUserDetailsService authorizationUserDetailsService;
     private final JwtTokenService jwtTokenService;
+    private final BlackListService blackListService;
 
     private static final String[] PERMIT_ALL = {
             "/api/v1/login",
@@ -59,7 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationProvider(authenticationProvider())
                 .authorizeRequests()
                     .antMatchers(PERMIT_ALL).permitAll()
-                    .anyRequest().authenticated()
                     .and()
                 .cors()
                     .and()
@@ -87,7 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public TokenLogoutFilter logoutFilter(){
-        return new TokenLogoutFilter();
+        return new TokenLogoutFilter(blackListService);
     }
 }
 

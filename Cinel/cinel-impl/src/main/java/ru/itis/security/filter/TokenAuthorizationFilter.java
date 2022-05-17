@@ -7,9 +7,9 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.itis.dto.response.AccountResponse;
 import ru.itis.exception.AuthenticationHeaderException;
+import ru.itis.exception.IrrelevantTokenException;
 import ru.itis.security.utils.AuthorizationHeaderHelper;
 import ru.itis.service.JwtTokenService;
-import ru.itis.utils.HttpRequestUtil;
 import ru.itis.utils.HttpResponseUtil;
 
 import javax.servlet.FilterChain;
@@ -37,6 +37,11 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
             log.info("Loading user for Authorization token: {}", token);
 
             if (Objects.nonNull(token)) {
+
+                if (jwtTokenService.validateAccessToken(token)){
+                    throw new IrrelevantTokenException(token, "Token is irrelevant");
+                }
+
                 AccountResponse user = jwtTokenService.getUserInfoByToken(token);
                 PreAuthenticatedAuthenticationToken authenticationToken = new PreAuthenticatedAuthenticationToken(user, token);
 
