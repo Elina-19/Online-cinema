@@ -14,6 +14,6 @@ import javax.persistence.*;
 @Entity
 public class Country extends AbstractEntity{
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 }
