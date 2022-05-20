@@ -1,12 +1,8 @@
 package ru.itis.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import ru.itis.model.Country;
 
-import java.util.Optional;
 
-public interface CountryRepository extends CrudRepository<Country, Long> {
-
-    Optional<Country> findByName(String name);
-
+public interface CountryRepository extends PagingAndSortingRepository<Country, Long> {
 }

@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.api.FilmApi;
 import ru.itis.dto.request.FilterSearchRequest;
-import ru.itis.dto.response.FilmPage;
+import ru.itis.dto.response.page.FilmPage;
 import ru.itis.service.FilmService;
 
 @RequiredArgsConstructor

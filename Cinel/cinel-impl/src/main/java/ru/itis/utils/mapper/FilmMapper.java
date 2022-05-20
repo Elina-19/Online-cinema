@@ -11,6 +11,6 @@ public interface FilmMapper {
 
     FilmResponse toResponse(Film film);
 
-    List<FilmResponse> toFilmResponses(List<Film> films);
+    List<FilmResponse> toResponses(List<Film> films);
 
 }

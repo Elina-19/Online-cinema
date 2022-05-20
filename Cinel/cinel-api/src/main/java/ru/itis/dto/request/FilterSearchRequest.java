@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class FilterSearchRequest {
 
-    private FilmFilter filter;
+    private FilmFilterRequest filter;
 
-    private FilmSearch search;
+    private String search;
 
 }

@@ -1,15 +1,17 @@
 package ru.itis.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import ru.itis.dto.request.CountryRequest;
-import ru.itis.exception.CountryNotFoundException;
+import ru.itis.dto.response.page.CountryPage;
 import ru.itis.model.Country;
 import ru.itis.repository.CountryRepository;
 import ru.itis.service.CountryService;
+import ru.itis.utils.mapper.CountryMapper;
 
 import java.util.HashSet;
-import java.util.Set;
 
 @RequiredArgsConstructor
 @Service
@@ -17,15 +19,20 @@ public class CountryServiceImpl implements CountryService {
 
     private final CountryRepository countryRepository;
 
+    private final CountryMapper countryMapper;
+
+    @Value("${cinel.default-page-size}")
+    private int defaultPageSize;
+
+
     @Override
-    public Set<Country> getCountriesByRequest(Set<CountryRequest> countryRequests) {
-        Set<Country> countries = new HashSet<>();
-        for (CountryRequest countryRequest : countryRequests) {
-            countries.add(
-                    countryRepository.findByName(countryRequest.getName())
-                            .orElseThrow(CountryNotFoundException::new)
-            );
-        }
-        return countries;
+    public CountryPage getCountries(Integer page) {
+        PageRequest pageRequest = PageRequest.of(page, defaultPageSize);
+        Page<Country> countryPage = countryRepository.findAll(pageRequest);
+
+        return CountryPage.builder()
+                .countries(countryMapper.toResponses(new HashSet<>(countryPage.getContent())))
+                .totalPages(countryPage.getTotalPages())
+                .build();
     }
 }

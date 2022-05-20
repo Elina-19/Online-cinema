@@ -5,14 +5,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FilmSearch {
+public class FilmFilterRequest {
 
-    private String name;
+    private Integer year;
 
-    private String description;
+    private Set<CountryRequest> countries;
+
+    private Set<GenreRequest> genres;
 
 }

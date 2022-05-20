@@ -1,10 +1,10 @@
-package ru.itis.dto.request;
+package ru.itis.dto.response.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+import ru.itis.dto.response.GenreResponse;
 
 import java.util.Set;
 
@@ -12,12 +12,10 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FilmFilter {
+public class GenrePage {
 
-    private Integer year;
+    private Set<GenreResponse> genres;
 
-    private Set<CountryRequest> countries;
-
-    private Set<GenreRequest> genres;
+    private Integer totalPages;
 
 }

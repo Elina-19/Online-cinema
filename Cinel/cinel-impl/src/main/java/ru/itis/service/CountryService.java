@@ -1,11 +1,10 @@
 package ru.itis.service;
 
-import ru.itis.dto.request.CountryRequest;
-import ru.itis.model.Country;
+import ru.itis.dto.response.page.CountryPage;
 
-import java.util.Set;
 
 public interface CountryService {
 
-    Set<Country> getCountriesByRequest(Set<CountryRequest> countryRequests);
+    CountryPage getCountries(Integer page);
+
 }

@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CountryRequest {
 
-    private String name;
+    private String id;
 
 }

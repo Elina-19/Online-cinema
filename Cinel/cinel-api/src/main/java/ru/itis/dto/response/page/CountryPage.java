@@ -1,19 +1,20 @@
-package ru.itis.dto.response;
+package ru.itis.dto.response.page;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.dto.response.CountryResponse;
 
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FilmPage {
+public class CountryPage {
 
-    private List<FilmResponse> films;
+    private Set<CountryResponse> countries;
 
     private Integer totalPages;
 
