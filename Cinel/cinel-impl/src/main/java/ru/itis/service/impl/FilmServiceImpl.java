@@ -12,6 +12,9 @@ import ru.itis.repository.FilmRepository;
 import ru.itis.filter.FilmFilters;
 import ru.itis.service.FilmService;
 import ru.itis.utils.mapper.FilmMapper;
+import ru.itis.exception.FilmNotExistException;
+
+import java.util.UUID;
 
 
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ import ru.itis.utils.mapper.FilmMapper;
 public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
+
 
     private final FilmMapper filmMapper;
 
@@ -37,5 +41,13 @@ public class FilmServiceImpl implements FilmService {
                 .films(filmMapper.toResponses(filmPage.getContent()))
                 .totalPages(filmPage.getTotalPages())
                 .build();
+
+    @Override
+    public Film getById(UUID id) {
+        return filmRepository
+                .findById(id)
+                .orElseThrow(()
+                        -> new FilmNotExistException(id));
+
     }
 }

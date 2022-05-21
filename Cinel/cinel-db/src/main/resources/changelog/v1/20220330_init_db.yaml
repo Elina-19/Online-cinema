@@ -8,10 +8,9 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      primaryKey: true
-                      primaryKeyName: pk_room
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_room
                   name: id
                   type: UUID
               - column:
@@ -22,10 +21,9 @@ databaseChangeLog:
                   name: code
                   type: VARCHAR(50)
                   constraints:
-                    constraints:
-                      nullable: false
-                      unique: true
-                      uniqueConstraintName: uk_room_code
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uk_room_code
               - column:
                   name: is_active
                   type: BOOL
@@ -39,10 +37,9 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      primaryKey: true
-                      primaryKeyName: pk_account
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_account
                   name: id
                   type: UUID
               - column:
@@ -51,10 +48,9 @@ databaseChangeLog:
                   defaultValueComputed: NOW()
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      unique: true
-                      uniqueConstraintName: uk_account_code
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uk_account_code
                   name: code
                   type: VARCHAR(100)
               - column:
@@ -67,16 +63,14 @@ databaseChangeLog:
                   type: BOOL
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      unique: true
-                      uniqueConstraintName: uk_account_email
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uk_account_email
                   name: email
                   type: VARCHAR(100)
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
+                    nullable: false
                   name: hash_password
                   type: VARCHAR(100)
               - column:
@@ -90,19 +84,17 @@ databaseChangeLog:
                   type: VARCHAR(100)
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      unique: true
-                      uniqueConstraintName: uk_account_username
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: uk_account_username
                   name: username
                   type: VARCHAR(50)
               - column:
                   name: room_id
                   type: UUID
                   constraints:
-                    constraints:
-                      foreignKeyName: fk_account_room_id
-                      references: room(id)
+                    foreignKeyName: fk_account_room_id
+                    references: room(id)
   - changeSet:
       id: create file_info table
       author: Элина
@@ -112,10 +104,9 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      primaryKey: true
-                      primaryKeyName: pk_file_info
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_file_info
                   name: id
                   type: UUID
               - column:
@@ -143,10 +134,9 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      primaryKey: true
-                      primaryKeyName: pk_film
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_film
                   name: id
                   type: UUID
               - column:
@@ -158,8 +148,7 @@ databaseChangeLog:
                   type: TEXT
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
+                    nullable: false
                   name: name
                   type: VARCHAR(100)
               - column:
@@ -169,9 +158,8 @@ databaseChangeLog:
                   name: file_info_id
                   type: UUID
                   constraints:
-                    constraints:
-                      foreignKeyName: fk_film_file_info_id
-                      references: file_info(id)
+                    foreignKeyName: fk_film_file_info_id
+                    references: file_info(id)
   - changeSet:
       id: create account_film table
       author: Элина
@@ -181,18 +169,16 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_account_film_account_id
-                      references: account(id)
+                    nullable: false
+                    foreignKeyName: fk_account_film_account_id
+                    references: account(id)
                   name: account_id
                   type: UUID
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_account_film_film_id
-                      references: film(id)
+                    nullable: false
+                    foreignKeyName: fk_account_film_film_id
+                    references: film(id)
                   name: film_id
                   type: UUID
   - changeSet:
@@ -215,8 +201,7 @@ databaseChangeLog:
                   defaultValueComputed: NOW()
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
+                    nullable: false
                   name: name
                   type: VARCHAR(150)
   - changeSet:
@@ -228,18 +213,16 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_film_country_film_id
-                      references: film(id)
+                    nullable: false
+                    foreignKeyName: fk_film_country_film_id
+                    references: film(id)
                   name: film_id
                   type: UUID
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_film_country_country_id
-                      references: country(id)
+                    nullable: false
+                    foreignKeyName: fk_film_country_country_id
+                    references: country(id)
                   name: country_id
                   type: UUID
   - changeSet:
@@ -251,10 +234,9 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      primaryKey: true
-                      primaryKeyName: pk_genre
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_genre
                   name: id
                   type: UUID
               - column:
@@ -263,8 +245,7 @@ databaseChangeLog:
                   defaultValueComputed: NOW()
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
+                    nullable: false
                   name: name
                   type: VARCHAR(50)
   - changeSet:
@@ -278,17 +259,15 @@ databaseChangeLog:
             columns:
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_film_genre_film_id
-                      references: film(id)
+                    nullable: false
+                    foreignKeyName: fk_film_genre_film_id
+                    references: film(id)
                   name: film_id
                   type: UUID
               - column:
                   constraints:
-                    constraints:
-                      nullable: false
-                      foreignKeyName: fk_film_genre_genre_id
-                      references: genre(id)
+                    nullable: false
+                    foreignKeyName: fk_film_genre_genre_id
+                    references: genre(id)
                   name: genre_id
                   type: UUID
