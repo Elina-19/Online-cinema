@@ -1,4 +1,4 @@
-package ru.itis.dto;
+package ru.itis.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class MessageDto {
-    private String message;
+public class MessageRequest {
+
+    //TODO: add sender
+
+    private String text;
+
 }

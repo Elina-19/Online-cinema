@@ -1,6 +1,8 @@
 package ru.itis.service;
 
+import ru.itis.dto.request.MessageRequest;
 import ru.itis.dto.request.RoomRequest;
+import ru.itis.dto.response.MessageResponse;
 import ru.itis.dto.response.RoomExtendedResponse;
 import ru.itis.dto.response.RoomResponse;
 import ru.itis.model.Room;
@@ -20,4 +22,7 @@ public interface RoomService {
     RoomExtendedResponse changeFilm(UUID roomId, UUID filmId);
 
     Room getRoomByCode(String code);
+
+    MessageResponse sendMessageToRoom(UUID roomId, MessageRequest message);
+
 }

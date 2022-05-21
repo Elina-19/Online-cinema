@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    <script src="/cinel/js/app.js"></script>
+<#--    <script src="/cinel/templates/js/app.js"></script>-->
     <title>Document</title>
 </head>
 <body>
@@ -53,14 +53,14 @@
     let stompClient = null;
 
     function connect() {
-        let socket = new SockJS("/cinel/chat");
+        let socket = new SockJS("/cinel/websocket");
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
-            stompClient.subscribe("/messages", function (message) {
+            stompClient.subscribe("/chat/room/123e4567-e89b-12d3-a456-556642440000", function (message) {;
                 console.log(message);
                 let json = JSON.parse(message.body);
-                showGreeting(json['message']);
+                showGreeting(json['text']);
             })
         });
     }
@@ -71,11 +71,10 @@
 
     function sendMessage(message) {
         let json = {
-            "message" : message
+            "text" : message
         }
 
-        // stompClient.send("/messages", {}, JSON.stringify(json));
-        stompClient.send("/app/news", {}, JSON.stringify(json));
+        stompClient.send("/app/room/123e4567-e89b-12d3-a456-556642440000", {}, JSON.stringify(json));
     }
 </script>
 </body>
