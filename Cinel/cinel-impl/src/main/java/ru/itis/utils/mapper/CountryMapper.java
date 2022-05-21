@@ -10,7 +10,6 @@ import java.util.Set;
 @Mapper(componentModel = "spring")
 public interface CountryMapper {
 
-    @Mapping(target = "id", expression = "java(country.getId().toString())")
     CountryResponse toResponse(Country country);
 
     Set<CountryResponse> toResponses(Set<Country> countries);

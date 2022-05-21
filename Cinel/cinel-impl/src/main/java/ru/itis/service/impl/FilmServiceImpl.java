@@ -41,6 +41,7 @@ public class FilmServiceImpl implements FilmService {
                 .films(filmMapper.toResponses(filmPage.getContent()))
                 .totalPages(filmPage.getTotalPages())
                 .build();
+    }
 
     @Override
     public Film getById(UUID id) {

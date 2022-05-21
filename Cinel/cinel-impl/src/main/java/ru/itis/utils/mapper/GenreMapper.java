@@ -10,7 +10,6 @@ import java.util.Set;
 @Mapper(componentModel = "spring")
 public interface GenreMapper {
 
-    @Mapping(target = "id", expression = "java(genre.getId().toString())")
     GenreResponse toResponse(Genre genre);
 
     Set<GenreResponse> toResponses(Set<Genre> genres);
