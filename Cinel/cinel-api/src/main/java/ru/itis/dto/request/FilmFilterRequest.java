@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,8 +17,8 @@ public class FilmFilterRequest {
 
     private Integer year;
 
-    private Set<CountryRequest> countries;
+    private Set<UUID> countriesIds;
 
-    private Set<GenreRequest> genres;
+    private Set<UUID> genresIds;
 
 }

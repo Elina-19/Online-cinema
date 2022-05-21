@@ -9,8 +9,7 @@ import ru.itis.model.*;
 import javax.persistence.criteria.JoinType;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+
 
 @UtilityClass
 public class FilmFilters {
@@ -53,23 +52,17 @@ public class FilmFilters {
             specifications.add(Specifications.equal(Film_.YEAR, filter.getYear()));
         }
 
-        List<UUID> genresUuids = filter.getGenres().stream()
-                .map(request -> UUID.fromString(request.getId()))
-                .collect(Collectors.toList());
+        if (filter.getGenresIds() != null) {
 
-        if (filter.getGenres() != null) {
             specifications.add(
-                    Specifications.in(JoinType.INNER, Film_.GENRES + "." + Genre_.ID, genresUuids)
+                    Specifications.in(JoinType.INNER, Film_.GENRES + "." + Genre_.ID, filter.getGenresIds())
             );
         }
 
-        List<UUID> countriesUuids = filter.getCountries().stream()
-                .map(request -> UUID.fromString(request.getId()))
-                .collect(Collectors.toList());
+        if (filter.getGenresIds() != null) {
 
-        if (filter.getGenres() != null) {
             specifications.add(
-                    Specifications.in(JoinType.INNER, Film_.COUNTRIES + "." + Country_.ID, countriesUuids)
+                    Specifications.in(JoinType.INNER, Film_.COUNTRIES + "." + Country_.ID, filter.getCountriesIds())
             );
         }
 
