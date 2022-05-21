@@ -1,4 +1,4 @@
-package ru.itis.dto.response;
+package ru.itis.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GenreResponse {
+public class FilterSearchRequest {
 
-    private String id;
+    private FilmFilterRequest filter;
 
-    private String name;
+    private String search;
 
 }

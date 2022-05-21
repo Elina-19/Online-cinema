@@ -27,5 +27,3 @@ public class WebWvcConfig implements WebMvcConfigurer {
                 .resourceChain(false);
     }
 }
-
-
