@@ -6,8 +6,6 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.UUID;
 
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
-
 @RequestMapping("/api/v1/account")
 public interface AccountApi<PRINCIPAL> {
 

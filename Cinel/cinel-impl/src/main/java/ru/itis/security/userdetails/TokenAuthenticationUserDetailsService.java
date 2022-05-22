@@ -3,15 +3,13 @@ package ru.itis.security.userdetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.enums.Role;
 import ru.itis.dto.response.AccountResponse;
-import ru.itis.exception.AuthenticationHeaderException;
+import ru.itis.exception.token.AuthenticationHeaderException;
 import ru.itis.service.JwtTokenService;
 
 import java.util.*;

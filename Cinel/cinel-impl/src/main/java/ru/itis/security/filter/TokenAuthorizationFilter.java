@@ -2,14 +2,11 @@ package ru.itis.security.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.itis.dto.response.AccountResponse;
-import ru.itis.exception.AuthenticationHeaderException;
-import ru.itis.exception.IrrelevantTokenException;
+import ru.itis.exception.token.IrrelevantTokenException;
 import ru.itis.security.utils.AuthorizationHeaderHelper;
 import ru.itis.service.JwtTokenService;
 import ru.itis.utils.HttpResponseUtil;

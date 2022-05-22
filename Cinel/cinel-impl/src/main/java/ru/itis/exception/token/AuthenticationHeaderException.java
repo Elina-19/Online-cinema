@@ -1,4 +1,4 @@
-package ru.itis.exception;
+package ru.itis.exception.token;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
