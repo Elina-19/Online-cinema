@@ -1,4 +1,4 @@
-package ru.itis.controllers;
+package ru.itis.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;

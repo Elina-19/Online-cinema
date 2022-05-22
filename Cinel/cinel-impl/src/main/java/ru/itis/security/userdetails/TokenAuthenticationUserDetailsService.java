@@ -5,24 +5,27 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.enums.Role;
 import ru.itis.dto.response.AccountResponse;
 import ru.itis.exception.AuthenticationHeaderException;
+import ru.itis.service.JwtTokenService;
 
 import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class TokenAuthenticationUserDetailsService implements AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> {
+public class TokenAuthenticationUserDetailsService implements UserDetailsService {
+
+    private final JwtTokenService jwtTokenService;
 
     @Override
-    public UserDetails loadUserDetails(PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken) {
-        return loadUserDetails((AccountResponse) preAuthenticatedAuthenticationToken.getPrincipal(),
-                String.valueOf(preAuthenticatedAuthenticationToken.getCredentials()));
+    public UserDetails loadUserByUsername(String token) throws UsernameNotFoundException {
+        return loadUserDetails(jwtTokenService.getUserInfoByToken(token), token);
     }
 
     private UserDetails loadUserDetails(AccountResponse accountResponse, String token) {
