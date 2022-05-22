@@ -1,4 +1,4 @@
-package ru.itis.controllers.handlers;
+package ru.itis.controller.handlers;
 
 import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;

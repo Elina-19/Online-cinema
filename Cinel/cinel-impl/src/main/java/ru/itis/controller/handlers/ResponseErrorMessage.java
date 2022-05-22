@@ -1,4 +1,4 @@
-package ru.itis.controllers.handlers;
+package ru.itis.controller.handlers;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

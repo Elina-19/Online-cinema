@@ -58,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .addFilterAfter(tokenAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(logoutFilter(), LogoutFilter.class)
-                .authenticationProvider(authenticationProvider())
                 .authorizeRequests()
                     .antMatchers(PERMIT_ALL).permitAll()
                     .and()
@@ -69,22 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic().disable();
     }
 
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        PreAuthenticatedAuthenticationProvider authenticationProvider = new PreAuthenticatedAuthenticationProvider();
-        authenticationProvider.setPreAuthenticatedUserDetailsService(authorizationUserDetailsService);
-        authenticationProvider.setThrowExceptionWhenTokenRejected(false);
-
-        return authenticationProvider;
-    }
-
-    @Override
-    protected AuthenticationManager authenticationManager() {
-        return new ProviderManager(Collections.singletonList(authenticationProvider()));
-    }
-
     public OncePerRequestFilter tokenAuthorizationFilter() {
-        return new TokenAuthorizationFilter(jwtTokenService);
+        return new TokenAuthorizationFilter(jwtTokenService, authorizationUserDetailsService);
     }
 
     public TokenLogoutFilter logoutFilter(){

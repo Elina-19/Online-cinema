@@ -2,7 +2,9 @@ package ru.itis.security.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.itis.dto.response.AccountResponse;
@@ -26,6 +28,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 public class TokenAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtTokenService jwtTokenService;
+    private final UserDetailsService accountUserDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -38,12 +41,12 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
 
             if (Objects.nonNull(token)) {
 
-                if (jwtTokenService.validateAccessToken(token)){
+                if (!jwtTokenService.validateAccessToken(token)){
                     throw new IrrelevantTokenException(token, "Token is irrelevant");
                 }
 
-                AccountResponse user = jwtTokenService.getUserInfoByToken(token);
-                PreAuthenticatedAuthenticationToken authenticationToken = new PreAuthenticatedAuthenticationToken(user, token);
+                PreAuthenticatedAuthenticationToken authenticationToken = new PreAuthenticatedAuthenticationToken(
+                        accountUserDetailsService.loadUserByUsername(token), token);
 
                 if (Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);
