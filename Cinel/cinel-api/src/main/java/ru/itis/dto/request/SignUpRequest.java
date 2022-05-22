@@ -1,25 +1,20 @@
-package ru.itis.dto.response;
+package ru.itis.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.itis.dto.enums.Role;
-
-import java.util.UUID;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class AccountResponse {
-
-    private UUID id;
+public class SignUpRequest {
 
     private String username;
 
     private String email;
 
-    private Role role;
+    private String password;
 
 }
