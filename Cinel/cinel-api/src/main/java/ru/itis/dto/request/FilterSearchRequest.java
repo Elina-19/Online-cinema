@@ -1,21 +1,18 @@
-package ru.itis.dto.response;
-
+package ru.itis.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CountryResponse {
+public class FilterSearchRequest {
 
-    private UUID id;
+    private FilmFilterRequest filter;
 
-    private String name;
+    private String search;
 
 }
