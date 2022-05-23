@@ -7,6 +7,7 @@ import ru.itis.dto.request.LoginRequest;
 import ru.itis.dto.response.AccountResponse;
 import ru.itis.dto.response.TokenCoupleResponse;
 import ru.itis.exception.CinelUnauthorizedException;
+import ru.itis.model.Account;
 import ru.itis.repository.AccountRepository;
 import ru.itis.service.JwtTokenService;
 import ru.itis.service.LoginService;
@@ -28,12 +29,15 @@ public class LoginServiceImpl implements LoginService {
     @Transactional
     @Override
     public TokenCoupleResponse login(LoginRequest loginRequest) {
-        AccountResponse accountResponse =  accountRepository.findByEmail(loginRequest.getEmail())
+        Account account =  accountRepository.findByEmail(loginRequest.getEmail())
                 .filter(user -> passwordEncoder.matches(loginRequest.getPassword(), user.getHashPassword()))
-                .map(accountMapper::toResponse)
                 .orElseThrow(() -> new CinelUnauthorizedException("Failed to log in: " + loginRequest.getEmail()));
 
-        return jwtTokenService.generateTokenCouple(accountResponse);
+        if (!account.getConfirmed()){
+            throw new CinelUnauthorizedException("Code is not confirmed");
+        }
+
+        return jwtTokenService.generateTokenCouple(accountMapper.toResponse(account));
     }
 
 }

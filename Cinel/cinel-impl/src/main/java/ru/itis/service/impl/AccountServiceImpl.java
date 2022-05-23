@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.itis.dto.request.AccountRequest;
 import ru.itis.dto.response.AccountResponse;
 import ru.itis.exception.AccountNotExistException;
+import ru.itis.exception.AccountNotFoundException;
 import ru.itis.model.Account;
 import ru.itis.model.Room;
 import ru.itis.repository.AccountRepository;
@@ -35,6 +36,13 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository
                 .findByEmail(email)
                 .map(accountMapper::toResponse);
+    }
+
+    @Override
+    public Account getAccountByEmail(String email) {
+        return accountRepository
+                .findByEmail(email)
+                .orElse(null);
     }
 
     @Override

@@ -11,6 +11,8 @@ public interface AccountService {
 
     Optional<AccountResponse> findByEmail(String email);
 
+    Account getAccountByEmail(String email);
+
     Account getById(UUID id);
 
     Account save(Account account);

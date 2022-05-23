@@ -16,6 +16,8 @@ import ru.itis.utils.EmailUtil;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RequiredArgsConstructor
 @Service
@@ -38,7 +40,6 @@ public class SignUpServiceImpl implements SignUpService {
                 .email(signUpRequest.getEmail())
                 .hashPassword(passwordEncoder.encode(
                         signUpRequest.getPassword()))
-                .code("code")
                 .isActive(false)
                 .role(Role.USER)
                 .confirmed(false)
@@ -50,7 +51,10 @@ public class SignUpServiceImpl implements SignUpService {
         map.put("username", account.getUsername());
         map.put("confirmLink", path + "/api/v1/confirm/" + account.getCode());
 
-        emailUtil.sendMail(account.getEmail(), "confirm", "confirm_mail.ftlh", map);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.submit(
+                () -> emailUtil.sendMail(
+                        account.getEmail(), "confirm", "confirm_mail.ftlh", map));
 
         return account.getId();
     }

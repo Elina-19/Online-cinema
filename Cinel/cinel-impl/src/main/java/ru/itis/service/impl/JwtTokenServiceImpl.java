@@ -9,6 +9,7 @@ import ru.itis.dto.enums.Role;
 import ru.itis.dto.request.LoginRequest;
 import ru.itis.dto.response.AccountResponse;
 import ru.itis.dto.response.TokenCoupleResponse;
+import ru.itis.model.Account;
 import ru.itis.model.RefreshTokenEntity;
 import ru.itis.provider.JwtAccessTokenProvider;
 import ru.itis.provider.JwtRefreshTokenProvider;
@@ -26,6 +27,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Override
     public AccountResponse getUserInfoByToken(String token) {
         return jwtAccessTokenProvider.userInfoByToken(token);
+    }
+
+    @Override
+    public Account getUserByToken(String token) {
+        return jwtAccessTokenProvider.userByToken(token);
     }
 
     @Override

@@ -3,6 +3,7 @@ package ru.itis.provider;
 import io.jsonwebtoken.Claims;
 import ru.itis.dto.enums.Role;
 import ru.itis.dto.response.AccountResponse;
+import ru.itis.model.Account;
 
 import java.util.Date;
 import java.util.List;
@@ -15,6 +16,8 @@ public interface JwtAccessTokenProvider {
     boolean validateAccessToken(String accessToken);
 
     AccountResponse userInfoByToken(String token);
+
+    Account userByToken(String token);
 
     Claims parseAccessToken(String accessToken);
 

@@ -1,10 +1,23 @@
 ###create room
 POST localhost:8080/cinel/api/v1/rooms
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiVVNFUiIsInN1YiI6ImVsaW5hXzNzaGFAbWFpbC5ydSIsImV4cCI6MTY1MzIzMzAwNCwiaWF0IjoxNjUzMjMyNDA0fQ.YE34irUSKzwQ5U0ohJ_5a8_nVMeXvTqYLMQfUHmnGHfKG7cFTgJCzLa5ktOI7AWfvx36UoPdOyBz8NxRO-iDyQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiVVNFUiIsInN1YiI6ImVsaW5hXzNzaGFAbWFpbC5ydSIsImV4cCI6MTY1MzMzNDc2NSwiaWF0IjoxNjUzMzM0MTY1fQ.2aswcmwACoo9MzW7--WdImpZC2UVbTtjLjab9SBiQnEihvKFuiXFk0i1NG5XxlmWo3hZ-MQfw0aOBzpMQEumxg
 
 ###change film
-PUT localhost:8080/cinel/api/v1/rooms/247b724b-cac0-403c-b0c3-e8891fa73d1a/film?filmId=247b724b-cac0-403c-b0c3-e8891fa73d5a
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiVVNFUiIsInN1YiI6ImVsaW5hXzNzaGFAbWFpbC5ydSIsImV4cCI6MTY1MzIzMzY3NiwiaWF0IjoxNjUzMjMzMDc2fQ.XqugWYURK5UvWfcYEEvMWcdzoMmoub4hLUYdli0GFodhrn0765FKpr26DXcfe1D2WKDs7dHuHB1KOcCJHjwpBg
-###delete film
-DELETE localhost:8080/cinel/api/v1/rooms/247b724b-cac0-403c-b0c3-e8891fa73d1a
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiVVNFUiIsInN1YiI6ImVsaW5hXzNzaGFAbWFpbC5ydSIsImV4cCI6MTY1MzIzMzAwNCwiaWF0IjoxNjUzMjMyNDA0fQ.YE34irUSKzwQ5U0ohJ_5a8_nVMeXvTqYLMQfUHmnGHfKG7cFTgJCzLa5ktOI7AWfvx36UoPdOyBz8NxRO-iDyQ
+PUT localhost:8080/cinel/api/v1/rooms/fb2fc5e7-5412-49e0-be07-eb23303748cf/film?filmId=247b724b-cac0-403c-b0c3-e8891fa73d5a
+Authorization: Bearer
+
+###delete room
+DELETE localhost:8080/cinel/api/v1/rooms/fb2fc5e7-5412-49e0-be07-eb23303748cf
+Authorization: Bearer
+
+###join to room
+PUT localhost:8080/cinel/api/v1/account/room?roomCode=675948hf
+Authorization: Bearer
+
+###leave room
+DELETE localhost:8080/cinel/api/v1/account/room?roomId=9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d
+Authorization: Bearer
+
+###get room
+GET localhost:8080/cinel/api/v1/rooms/8ba7ef53-2a44-4a7a-812c-da388e8a06b9
+Authorization: Bearer
