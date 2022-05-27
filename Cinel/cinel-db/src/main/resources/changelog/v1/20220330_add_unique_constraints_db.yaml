@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: add unique constraint country name
+      author: Marina
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_country_name
+            tableName: country
+  - changeSet:
+      id: add unique constraint genre name
+      author: Marina
+      changes:
+        - addUniqueConstraint:
+            columnNames: name
+            constraintName: uc_genre_name
+            tableName: genre

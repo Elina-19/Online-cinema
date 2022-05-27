@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -14,11 +15,15 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
 
 import java.util.List;
 
-
 @EnableWebMvc
 @Configuration
 @ComponentScan("ru.itis")
 public class WebWvcConfig implements WebMvcConfigurer {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -48,5 +53,3 @@ public class WebWvcConfig implements WebMvcConfigurer {
         return configurer;
     }
 }
-
-

@@ -1,16 +1,17 @@
-package ru.itis.dto.request;
+package ru.itis.dto;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RoomRequest {
-    private UUID adminId;
+public class TokensDto {
+    private String _id;
+    private String accessToken;
+    private String refreshToken;
 }

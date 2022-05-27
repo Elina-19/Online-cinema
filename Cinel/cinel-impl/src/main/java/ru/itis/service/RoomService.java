@@ -11,15 +11,15 @@ import java.util.UUID;
 
 public interface RoomService {
 
-    RoomResponse createRoom(RoomRequest room);
+    RoomResponse createRoom(UUID accountId);
 
     RoomExtendedResponse getRoomExtendedResponseById(UUID roomId);
 
     Room getRoomById(UUID roomId);
 
-    void makeRoomInactive(UUID roomId);
+    void makeRoomInactive(UUID accountId, UUID roomId);
 
-    RoomExtendedResponse changeFilm(UUID roomId, UUID filmId);
+    RoomExtendedResponse changeFilm(UUID accountId, UUID roomId, UUID filmId);
 
     Room getRoomByCode(String code);
 

@@ -39,8 +39,8 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
-    public RoomResponse createRoom(RoomRequest room) {
-        Account account = accountService.getById(room.getAdminId());
+    public RoomResponse createRoom(UUID accountId) {
+        Account account = accountService.getById(accountId);
 
         Room newRoom = Room.builder()
                 .admin(account)
@@ -81,8 +81,8 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
-    public void makeRoomInactive(UUID roomId) {
-        Room room = roomRepository.findById(roomId)
+    public void makeRoomInactive(UUID accountId, UUID roomId) {
+        Room room = roomRepository.findByIdAndAdminId(roomId, accountId)
                 .orElseThrow(() -> new RoomNotExistException(roomId));
 
         room.setIsActive(false);
@@ -91,11 +91,11 @@ public class RoomServiceImpl implements RoomService {
 
     @Transactional
     @Override
-    public RoomExtendedResponse changeFilm(UUID roomId, UUID filmId) {
+    public RoomExtendedResponse changeFilm(UUID accountId, UUID roomId, UUID filmId) {
         Film film = filmService.getById(filmId);
 
         Room room = roomRepository
-                .findById(roomId)
+                .findByIdAndAdminId(roomId, accountId)
                 .orElseThrow(()
                         -> new RoomNotExistException(roomId));
 
