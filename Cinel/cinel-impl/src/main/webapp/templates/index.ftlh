@@ -55,7 +55,11 @@
     function connect() {
         let socket = new SockJS("/cinel/websocket");
         stompClient = Stomp.over(socket);
-        stompClient.connect({}, function (frame) {
+
+        var headers = {
+            Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiVVNFUiIsInN1YiI6ImVsaW5hXzNzaGFAbWFpbC5ydSIsImV4cCI6MTY1MzIzMzAwNCwiaWF0IjoxNjUzMjMyNDA0fQ.YE34irUSKzwQ5U0ohJ_5a8_nVMeXvTqYLMQfUHmnGHfKG7cFTgJCzLa5ktOI7AWfvx36UoPdOyBz8NxRO-iDyQ"
+        };
+        stompClient.connect(headers, function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe("/chat/room/123e4567-e89b-12d3-a456-556642440000", function (message) {;
                 console.log(message);

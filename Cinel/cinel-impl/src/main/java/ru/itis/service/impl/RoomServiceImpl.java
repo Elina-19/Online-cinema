@@ -5,7 +5,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.dto.request.MessageRequest;
-import ru.itis.dto.request.RoomRequest;
 import ru.itis.dto.response.MessageResponse;
 import ru.itis.dto.response.RoomExtendedResponse;
 import ru.itis.dto.response.RoomResponse;
