@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ru.itis.dto.request.FilmRequest;
 import ru.itis.dto.request.FilterSearchRequest;
 import ru.itis.dto.response.FilmResponse;
@@ -58,8 +59,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public FilmResponse addFilm(FilmRequest film) {
-        FileInfo fileInfo = fileService.upload(film.getVideoFile());
+    public FilmResponse addFilm(FilmRequest film, MultipartFile file) {
+        FileInfo fileInfo = fileService.upload(file);
         Film newFilm = filmMapper.toEntity(film);
         newFilm.setFileInfo(fileInfo);
         return filmMapper.toResponse(newFilm);
