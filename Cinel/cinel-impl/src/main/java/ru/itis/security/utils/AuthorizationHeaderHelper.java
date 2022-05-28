@@ -1,6 +1,6 @@
 package ru.itis.security.utils;
 
-import ru.itis.exception.AuthenticationHeaderException;
+import ru.itis.exception.token.AuthenticationHeaderException;
 import ru.itis.utils.HttpRequestUtil;
 
 public class AuthorizationHeaderHelper {

@@ -3,15 +3,13 @@ package ru.itis.security.userdetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
-import ru.itis.dto.enums.Role;
-import ru.itis.dto.response.AccountResponse;
-import ru.itis.exception.AuthenticationHeaderException;
+import ru.itis.exception.token.AuthenticationHeaderException;
+import ru.itis.model.Account;
+import ru.itis.model.Role;
 import ru.itis.service.JwtTokenService;
 
 import java.util.*;
@@ -25,23 +23,23 @@ public class TokenAuthenticationUserDetailsService implements UserDetailsService
 
     @Override
     public UserDetails loadUserByUsername(String token) throws UsernameNotFoundException {
-        return loadUserDetails(jwtTokenService.getUserInfoByToken(token), token);
+        return loadUserDetails(jwtTokenService.getUserByToken(token), token);
     }
 
-    private UserDetails loadUserDetails(AccountResponse accountResponse, String token) {
+    private UserDetails loadUserDetails(Account account, String token) {
         try {
-            return Optional.ofNullable(accountResponse)
-                    .map(account -> {
-                        List<SimpleGrantedAuthority> authorities = getAuthorities(account.getRole());
+            return Optional.ofNullable(account)
+                    .map(acc -> {
+                        List<SimpleGrantedAuthority> authorities = getAuthorities(acc.getRole());
                         return AccountUserDetails.builder()
-                                .id(account.getId())
-                                .username(account.getUsername())
-                                .createDate(null)
+                                .id(acc.getId())
+                                .username(acc.getUsername())
+                                .createDate(acc.getCreateDate())
                                 .authorities(authorities)
                                 .isAccountNonExpired(true)
                                 .isCredentialsNonExpired(true)
                                 .isAccountNonLocked(true)
-                                .isEnabled(true)
+                                .isEnabled(acc.getConfirmed())
                                 .token(token)
                                 .build();
                     })

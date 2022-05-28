@@ -1,6 +1,7 @@
-package ru.itis.exception;
+package ru.itis.exception.token;
 
 import org.springframework.http.HttpStatus;
+import ru.itis.exception.CinelServiceException;
 
 public class TokenRefreshException extends CinelServiceException {
 

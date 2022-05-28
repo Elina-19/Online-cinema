@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public interface SignUpService {
 
-    UUID signUp(SignUpRequest signUpRequest);
+    UUID signUp(SignUpRequest signUpRequest, String path);
+
+    void confirm(String confirmCode);
 
 }

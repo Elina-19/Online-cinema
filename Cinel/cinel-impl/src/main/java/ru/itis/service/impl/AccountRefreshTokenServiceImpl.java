@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.response.AccountResponse;
 import ru.itis.exception.AccountNotFoundException;
-import ru.itis.exception.TokenRefreshException;
+import ru.itis.exception.token.TokenRefreshException;
 import ru.itis.model.AccountRefreshTokenEntity;
 import ru.itis.model.RefreshTokenEntity;
 import ru.itis.repository.AccountRefreshTokenRepository;

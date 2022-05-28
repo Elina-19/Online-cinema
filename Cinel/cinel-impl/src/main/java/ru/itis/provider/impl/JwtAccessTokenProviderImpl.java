@@ -7,12 +7,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import ru.itis.dto.enums.Role;
 import ru.itis.dto.response.AccountResponse;
-import ru.itis.exception.AuthenticationHeaderException;
-import ru.itis.exception.IrrelevantTokenException;
+import ru.itis.exception.token.AuthenticationHeaderException;
+import ru.itis.exception.token.IrrelevantTokenException;
+import ru.itis.model.Account;
 import ru.itis.provider.JwtAccessTokenProvider;
-import ru.itis.repository.BlackListRepository;
 import ru.itis.service.AccountService;
 import ru.itis.service.BlackListService;
 
@@ -78,6 +77,13 @@ public class JwtAccessTokenProviderImpl implements JwtAccessTokenProvider {
         } catch (ExpiredJwtException e) {
             throw new AuthenticationHeaderException("Token expired date error");
         }
+    }
+
+    @Override
+    public Account userByToken(String token) {
+        Claims claims = parseAccessToken(token);
+
+        return accountService.getAccountByEmail(claims.getSubject());
     }
 
     @Override
