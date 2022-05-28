@@ -13,16 +13,16 @@ import javax.validation.Valid;
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-
 @RequestMapping("/api/v1/films")
 public interface FilmApi {
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     FilmPage getFilms(@RequestBody FilterSearchRequest filmRequest, @RequestParam Integer page);
 
-    @PutMapping(consumes = MULTIPART_FORM_DATA_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    FilmResponse addFilm(@RequestPart FilmRequest film, @RequestPart MultipartFile file);
+    FilmResponse addFilm(@RequestPart("filmDto") FilmRequest film, @RequestPart("file") MultipartFile file);
+//    FilmResponse addFilm(FilmRequest film);
 
 }

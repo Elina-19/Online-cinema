@@ -2,6 +2,7 @@ package ru.itis.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.api.FilmApi;
@@ -26,4 +27,9 @@ public class FilmController implements FilmApi {
     public FilmResponse addFilm(FilmRequest film, MultipartFile file) {
         return filmService.addFilm(film, file);
     }
+
+//    @Override
+//    public FilmResponse addFilm(FilmRequest film) {
+//        return filmService.addFilm(film);
+//    }
 }
