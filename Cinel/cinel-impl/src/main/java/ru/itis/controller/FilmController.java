@@ -2,9 +2,7 @@ package ru.itis.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import ru.itis.api.FilmApi;
 import ru.itis.dto.request.FilmRequest;
 import ru.itis.dto.request.FilterSearchRequest;

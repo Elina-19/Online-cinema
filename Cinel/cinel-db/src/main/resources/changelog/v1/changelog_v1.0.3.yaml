@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: create refresh token table
+      author: Элина
+      changes:
+        - createTable:
+            tableName: account_refresh_token
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_account_refresh_token
+                  name: id
+                  type: UUID
+              - column:
+                  name: expiry_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  constraints:
+                    nullable: false
+              - column:
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_account_refresh_token
+                    references: account(id)
+                  name: account_id
+                  type: UUID
+              - column:
+                  name: create_date
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()

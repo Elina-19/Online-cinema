@@ -1,21 +1,23 @@
 package ru.itis.api;
 
+import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.itis.dto.request.AccountRequest;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.UUID;
 
-import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
+@RequestMapping("/api/v1/account")
+public interface AccountApi<PRINCIPAL> {
 
-@RequestMapping("/api/v1/accounts")
-public interface AccountApi {
-    @PutMapping(value = "/{account-id}/room",
-            consumes = APPLICATION_JSON_VALUE)
+    @ApiImplicitParam(name = "Authorization", paramType = "header")
+    @PutMapping(value = "/room")
     @ResponseStatus(HttpStatus.OK)
-    void joinToRoom(@PathVariable("account-id") UUID accountId, @RequestBody AccountRequest account);
+    void joinToRoom(@ApiIgnore PRINCIPAL principal, @RequestParam String roomCode);
 
-    @DeleteMapping(value = "/{account-id}/room")
+    @ApiImplicitParam(name = "Authorization", paramType = "header")
+    @DeleteMapping(value = "/room")
     @ResponseStatus(HttpStatus.OK)
-    void leaveRoom(@PathVariable("account-id") UUID accountId, @RequestParam UUID roomId);
+    void leaveRoom(@ApiIgnore PRINCIPAL principal, @RequestParam UUID roomId);
+
 }
