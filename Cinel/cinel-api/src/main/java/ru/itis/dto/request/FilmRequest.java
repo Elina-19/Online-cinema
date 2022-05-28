@@ -19,6 +19,8 @@ public class FilmRequest {
 
     private String description;
 
+    private MultipartFile file;
+
     private Integer year;
 
     private Set<UUID> countriesIds;

@@ -15,6 +15,6 @@ public interface FilmService {
 
     Film getById(UUID id);
 
-    FilmResponse addFilm(FilmRequest film, MultipartFile file);
+    FilmResponse addFilm(FilmRequest film);
 
 }

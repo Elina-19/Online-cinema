@@ -59,8 +59,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public FilmResponse addFilm(FilmRequest film, MultipartFile file) {
-        FileInfo fileInfo = fileService.upload(file);
+    public FilmResponse addFilm(FilmRequest film) {
+        FileInfo fileInfo = fileService.upload(film.getFile());
         Film newFilm = filmMapper.toEntity(film);
         newFilm.setFileInfo(fileInfo);
         return filmMapper.toResponse(newFilm);

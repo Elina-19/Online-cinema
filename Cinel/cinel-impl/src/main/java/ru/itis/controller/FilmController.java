@@ -24,12 +24,7 @@ public class FilmController implements FilmApi {
     }
 
     @Override
-    public FilmResponse addFilm(FilmRequest film, MultipartFile file) {
-        return filmService.addFilm(film, file);
+    public FilmResponse addFilm(FilmRequest film) {
+        return filmService.addFilm(film);
     }
-
-//    @Override
-//    public FilmResponse addFilm(FilmRequest film) {
-//        return filmService.addFilm(film);
-//    }
 }

@@ -225,6 +225,11 @@
                 <artifactId>hibernate-validator</artifactId>
                 <version>6.2.0.Final</version>
             </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.4</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
