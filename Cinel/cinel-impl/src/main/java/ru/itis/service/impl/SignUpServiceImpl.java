@@ -49,7 +49,7 @@ public class SignUpServiceImpl implements SignUpService {
 
         Map<String, String> map = new HashMap<>();
         map.put("username", account.getUsername());
-        map.put("confirmLink", path + "/api/v1/confirm/" + account.getCode());
+        map.put("confirmLink", path + "/cinel/api/v1/confirm/" + account.getCode());
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.submit(

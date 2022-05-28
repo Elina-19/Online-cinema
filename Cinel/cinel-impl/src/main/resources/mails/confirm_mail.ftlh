@@ -11,10 +11,10 @@
     </style>
 </head>
 <body>
-<h1 class="text">Уважаемый(ая), ${username}! Для подтверждения регистрации нажмите
+<h1 class="text">Dear ${username}! Click to confirm your registration
     <span>
-            <a href=${confirmLink}>сюда</a>
-        </span>
+        <a href=${confirmLink}>here</a>
+    </span>
 </h1>
 </body>
 </html>
