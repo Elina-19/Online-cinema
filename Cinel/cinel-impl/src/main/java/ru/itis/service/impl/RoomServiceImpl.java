@@ -2,6 +2,7 @@ package ru.itis.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.itis.dto.request.MessageRequest;
@@ -14,11 +15,13 @@ import ru.itis.model.Account;
 import ru.itis.model.Film;
 import ru.itis.model.Room;
 import ru.itis.repository.RoomRepository;
+import ru.itis.security.userdetails.AccountUserDetails;
 import ru.itis.service.AccountService;
 import ru.itis.service.FilmService;
 import ru.itis.service.RoomService;
 import ru.itis.utils.mapper.RoomMapper;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -112,17 +115,19 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public MessageResponse sendMessageToRoom(UUID roomId, MessageRequest message) {
+    public MessageResponse sendMessageToRoom(UUID roomId, MessageRequest message, Principal principal) {
         if (roomRepository.findById(roomId).isEmpty()) {
             throw new RoomNotExistException(roomId);
         }
 
-        //TODO: add sender processing
+        PreAuthenticatedAuthenticationToken token = (PreAuthenticatedAuthenticationToken) principal;
+        AccountUserDetails userDetails = (AccountUserDetails) token.getPrincipal();
 
         return MessageResponse.builder()
                 .text(message.getText())
                 .roomId(roomId.toString())
                 .timeSent(LocalDateTime.now().toString())
+                .senderId(userDetails.getId())
                 .build();
     }
 }

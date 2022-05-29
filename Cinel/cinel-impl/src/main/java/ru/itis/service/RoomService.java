@@ -6,6 +6,7 @@ import ru.itis.dto.response.RoomExtendedResponse;
 import ru.itis.dto.response.RoomResponse;
 import ru.itis.model.Room;
 
+import java.security.Principal;
 import java.util.UUID;
 
 public interface RoomService {
@@ -22,6 +23,6 @@ public interface RoomService {
 
     Room getRoomByCode(String code);
 
-    MessageResponse sendMessageToRoom(UUID roomId, MessageRequest message);
+    MessageResponse sendMessageToRoom(UUID roomId, MessageRequest message, Principal principal);
 
 }

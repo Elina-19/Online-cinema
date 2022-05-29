@@ -28,7 +28,7 @@ public class SignUpServiceImpl implements SignUpService {
                 .email(signUpRequest.getEmail())
                 .hashPassword(passwordEncoder.encode(
                         signUpRequest.getPassword()))
-                .code("code")
+                .code(UUID.randomUUID().toString())
                 .isActive(false)
                 .role(Role.USER)
                 .confirmed(false)

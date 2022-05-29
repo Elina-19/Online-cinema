@@ -2,20 +2,16 @@ package ru.itis.security.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ru.itis.dto.response.AccountResponse;
-import ru.itis.exception.AuthenticationHeaderException;
 import ru.itis.exception.IrrelevantTokenException;
 import ru.itis.security.utils.AuthorizationHeaderHelper;
 import ru.itis.service.JwtTokenService;
 import ru.itis.utils.HttpResponseUtil;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,11 +28,10 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
+                                    FilterChain chain) throws IOException {
         try {
             String token = AuthorizationHeaderHelper.getTokenFromValidatedAuthorizationHeader(
                     request.getHeader(AUTHORIZATION));
-
             log.info("Loading user for Authorization token: {}", token);
 
             if (Objects.nonNull(token)) {

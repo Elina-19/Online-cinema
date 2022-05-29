@@ -52,13 +52,14 @@
 <script>
     let stompClient = null;
 
+    var headers = {
+        'Authorization' : "Bearer eyJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiVVNFUiIsInN1YiI6Im1hcmluYTExIiwiZXhwIjoxNjUzODc0NTY5LCJpYXQiOjE2NTM3NzQ5Njl9.gc0cPyx-rd-58UEU5Grzo98Ji7xrjog4RIk18-6UXb579rRH0k3nvLviwVhJK_3o3bv39Ei0DOmMPLGJgdeIpQ"
+    };
+
     function connect() {
         let socket = new SockJS("/cinel/websocket");
         stompClient = Stomp.over(socket);
 
-        var headers = {
-            Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJST0xFIjoiVVNFUiIsInN1YiI6ImVsaW5hXzNzaGFAbWFpbC5ydSIsImV4cCI6MTY1MzIzMzAwNCwiaWF0IjoxNjUzMjMyNDA0fQ.YE34irUSKzwQ5U0ohJ_5a8_nVMeXvTqYLMQfUHmnGHfKG7cFTgJCzLa5ktOI7AWfvx36UoPdOyBz8NxRO-iDyQ"
-        };
         stompClient.connect(headers, function (frame) {
             console.log('Connected: ' + frame);
             stompClient.subscribe("/chat/room/123e4567-e89b-12d3-a456-556642440000", function (message) {;
@@ -75,10 +76,10 @@
 
     function sendMessage(message) {
         let json = {
-            "text" : message
+            "text": message
         }
 
-        stompClient.send("/app/room/123e4567-e89b-12d3-a456-556642440000", {}, JSON.stringify(json));
+        stompClient.send("/api/v1/room/123e4567-e89b-12d3-a456-556642440000", headers, JSON.stringify(json));
     }
 </script>
 </body>

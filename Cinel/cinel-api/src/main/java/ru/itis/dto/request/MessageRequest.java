@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageRequest {
 
-    //TODO: add sender
-
     private String text;
 
 }
