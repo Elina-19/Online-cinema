@@ -13,6 +13,8 @@ public interface FilmApi {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    FilmPage getFilms(@RequestBody FilterSearchRequest filmRequest, @RequestParam Integer page);
+    FilmPage getFilms(@RequestBody FilterSearchRequest filmRequest,
+                      @RequestParam Integer page,
+                      @RequestParam(required = false, name = "page_size") Integer pageSize);
 
 }

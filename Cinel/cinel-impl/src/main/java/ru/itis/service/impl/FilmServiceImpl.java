@@ -32,9 +32,13 @@ public class FilmServiceImpl implements FilmService {
 
 
     @Override
-    public FilmPage getFilms(FilterSearchRequest filmRequest, Integer page) {
+    public FilmPage getFilms(FilterSearchRequest filmRequest, Integer page, Integer pageSize) {
 
-        PageRequest pageRequest = PageRequest.of(page, defaultPageSize);
+        if (pageSize == null) {
+            pageSize = defaultPageSize;
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
         Page<Film> filmPage = filmRepository.findAll(FilmFilters.fromFilterSearchRequest(filmRequest), pageRequest);
 
         return FilmPage.builder()

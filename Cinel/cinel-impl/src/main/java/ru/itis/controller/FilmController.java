@@ -15,7 +15,7 @@ public class FilmController implements FilmApi {
     private final FilmService filmService;
 
     @Override
-    public FilmPage getFilms(FilterSearchRequest request, Integer page) {
-        return filmService.getFilms(request, page);
+    public FilmPage getFilms(FilterSearchRequest request, Integer page, Integer pageSize) {
+        return filmService.getFilms(request, page, pageSize);
     }
 }

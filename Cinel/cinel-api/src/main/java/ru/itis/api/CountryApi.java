@@ -12,6 +12,7 @@ public interface CountryApi {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    CountryPage getCountries(@RequestParam Integer page);
+    CountryPage getCountries(@RequestParam Integer page,
+                             @RequestParam(required = false, name = "page_size") Integer pageSize);
 
 }
