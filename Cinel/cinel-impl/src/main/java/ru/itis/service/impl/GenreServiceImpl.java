@@ -9,6 +9,7 @@ import ru.itis.dto.response.page.GenrePage;
 import ru.itis.model.Genre;
 import ru.itis.repository.GenreRepository;
 import ru.itis.service.GenreService;
+import ru.itis.utils.PageSizeUtil;
 import ru.itis.utils.mapper.GenreMapper;
 
 import java.util.HashSet;
@@ -28,10 +29,7 @@ public class GenreServiceImpl implements GenreService {
     @Override
     public GenrePage getGenres(Integer page, Integer pageSize) {
 
-        if (pageSize == null) {
-            pageSize = defaultPageSize;
-        }
-
+        pageSize = PageSizeUtil.processPageSize(pageSize, defaultPageSize);
         PageRequest pageRequest = PageRequest.of(page, pageSize);
         Page<Genre> genrePage = genreRepository.findAll(pageRequest);
 
