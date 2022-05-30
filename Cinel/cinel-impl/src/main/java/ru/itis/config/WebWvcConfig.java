@@ -11,10 +11,15 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
@@ -56,6 +61,7 @@ public class WebWvcConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(new MappingJackson2HttpMessageConverter());
+        converters.add(new ByteArrayHttpMessageConverter());
     }
 
     @Override
@@ -63,5 +69,21 @@ public class WebWvcConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
                 .resourceChain(false);
+    }
+
+    @Bean
+    public ViewResolver viewResolver() {
+        FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
+        viewResolver.setPrefix("");
+        viewResolver.setSuffix(".ftlh");
+        viewResolver.setContentType("text/html;charset=UTF-8");
+        return viewResolver;
+    }
+
+    @Bean
+    public FreeMarkerConfigurer freeMarkerConfig() {
+        FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
+        configurer.setTemplateLoaderPath("/templates/");
+        return configurer;
     }
 }
