@@ -16,6 +16,7 @@ import ru.itis.repository.FilmRepository;
 import ru.itis.filter.FilmFilters;
 import ru.itis.service.FileService;
 import ru.itis.service.FilmService;
+import ru.itis.utils.PageSizeUtil;
 import ru.itis.utils.mapper.FilmMapper;
 import ru.itis.exception.FilmNotExistException;
 
@@ -40,10 +41,7 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public FilmPage getFilms(FilterSearchRequest filmRequest, Integer page, Integer pageSize) {
 
-        if (pageSize == null) {
-            pageSize = defaultPageSize;
-        }
-
+        pageSize = PageSizeUtil.processPageSize(pageSize, defaultPageSize);
         PageRequest pageRequest = PageRequest.of(page, pageSize);
         Page<Film> filmPage = filmRepository.findAll(FilmFilters.fromFilterSearchRequest(filmRequest), pageRequest);
 
