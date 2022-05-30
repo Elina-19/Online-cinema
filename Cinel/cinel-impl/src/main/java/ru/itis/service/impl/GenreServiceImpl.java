@@ -26,8 +26,13 @@ public class GenreServiceImpl implements GenreService {
 
 
     @Override
-    public GenrePage getGenres(Integer page) {
-        PageRequest pageRequest = PageRequest.of(page, defaultPageSize);
+    public GenrePage getGenres(Integer page, Integer pageSize) {
+
+        if (pageSize == null) {
+            pageSize = defaultPageSize;
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
         Page<Genre> genrePage = genreRepository.findAll(pageRequest);
 
         return GenrePage.builder()

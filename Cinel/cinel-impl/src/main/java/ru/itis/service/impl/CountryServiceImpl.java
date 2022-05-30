@@ -26,8 +26,13 @@ public class CountryServiceImpl implements CountryService {
 
 
     @Override
-    public CountryPage getCountries(Integer page) {
-        PageRequest pageRequest = PageRequest.of(page, defaultPageSize);
+    public CountryPage getCountries(Integer page, Integer pageSize) {
+
+        if (pageSize == null) {
+            pageSize = defaultPageSize;
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
         Page<Country> countryPage = countryRepository.findAll(pageRequest);
 
         return CountryPage.builder()

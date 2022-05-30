@@ -14,7 +14,7 @@ public class CountryController implements CountryApi {
     private final CountryService countryService;
 
     @Override
-    public CountryPage getCountries(Integer page) {
-        return countryService.getCountries(page);
+    public CountryPage getCountries(Integer page, Integer pageSize) {
+        return countryService.getCountries(page, pageSize);
     }
 }
