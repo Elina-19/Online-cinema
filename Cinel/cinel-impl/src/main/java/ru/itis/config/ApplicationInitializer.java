@@ -23,5 +23,6 @@ public class ApplicationInitializer implements WebApplicationInitializer {
                 servletContext.addServlet("dispatcher", new DispatcherServlet(springWebContext));
         dispatcherServlet.setLoadOnStartup(1);
         dispatcherServlet.addMapping("/");
+        dispatcherServlet.setAsyncSupported(true);
     }
 }

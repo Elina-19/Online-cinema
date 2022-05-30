@@ -14,15 +14,15 @@ import ru.itis.exception.CinelServiceException;
 @Slf4j
 public class GlobalExceptionHandler {
 
-//    @ExceptionHandler(Exception.class)
-//    public final ResponseEntity<ExceptionMessage> onAllExceptions(Exception exception) {
-//
-//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                .body(ExceptionMessage.builder()
-//                        .message(exception.getMessage())
-//                        .exceptionName(exception.getClass().getSimpleName())
-//                        .build());
-//    }
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<ExceptionMessage> onAllExceptions(Exception exception) {
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ExceptionMessage.builder()
+                        .message(exception.getMessage())
+                        .exceptionName(exception.getClass().getSimpleName())
+                        .build());
+    }
 
     @ExceptionHandler(AccessDeniedException.class)
     public final ResponseEntity<ExceptionMessage> onAccessDeniedException(AccessDeniedException exception) {

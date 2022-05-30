@@ -10,10 +10,12 @@ import ru.itis.dto.response.page.FilmPage;
 import ru.itis.model.Film;
 import ru.itis.repository.FilmRepository;
 import ru.itis.filter.FilmFilters;
+import ru.itis.service.FileService;
 import ru.itis.service.FilmService;
 import ru.itis.utils.mapper.FilmMapper;
 import ru.itis.exception.FilmNotExistException;
 
+import java.io.OutputStream;
 import java.util.UUID;
 
 
@@ -25,6 +27,8 @@ public class FilmServiceImpl implements FilmService {
 
 
     private final FilmMapper filmMapper;
+
+    private final FileService fileService;
 
 
     @Value("${cinel.default-page-size}")
