@@ -255,6 +255,7 @@
                 <artifactId>freemarker</artifactId>
                 <version>2.3.31</version>
             </dependency>
+            <dependency>
                 <groupId>javax.validation</groupId>
                 <artifactId>validation-api</artifactId>
                 <version>2.0.1.Final</version>
@@ -263,6 +264,11 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>6.2.0.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>1.6.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
