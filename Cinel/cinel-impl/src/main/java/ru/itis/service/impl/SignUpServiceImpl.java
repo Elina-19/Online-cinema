@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.request.SignUpRequest;
+import ru.itis.exception.AccountAlreadyExistException;
+import ru.itis.exception.AccountNotExistException;
 import ru.itis.exception.confirm_code.ConfirmCodeExpired;
 import ru.itis.exception.confirm_code.IllegalConfirmCodeException;
 import ru.itis.model.Account;
@@ -35,6 +37,13 @@ public class SignUpServiceImpl implements SignUpService {
     @Transactional
     @Override
     public UUID signUp(SignUpRequest signUpRequest, String path) {
+
+        if (accountRepository.existsByEmailOrUsername(
+                signUpRequest.getEmail(), signUpRequest.getUsername())){
+
+            throw new AccountAlreadyExistException();
+        }
+
         Account account = accountRepository.save(Account.builder()
                 .username(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())
