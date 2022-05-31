@@ -13,7 +13,6 @@ import ru.itis.service.JwtTokenService;
 import ru.itis.utils.HttpResponseUtil;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -30,11 +29,10 @@ public class TokenAuthorizationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain chain) throws ServletException, IOException {
+                                    FilterChain chain) throws IOException {
         try {
             String token = AuthorizationHeaderHelper.getTokenFromValidatedAuthorizationHeader(
                     request.getHeader(AUTHORIZATION));
-
             log.info("Loading user for Authorization token: {}", token);
 
             if (Objects.nonNull(token)) {

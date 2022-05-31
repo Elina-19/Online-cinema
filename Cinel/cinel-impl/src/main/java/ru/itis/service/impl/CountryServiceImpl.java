@@ -9,6 +9,7 @@ import ru.itis.dto.response.page.CountryPage;
 import ru.itis.model.Country;
 import ru.itis.repository.CountryRepository;
 import ru.itis.service.CountryService;
+import ru.itis.utils.PageSizeUtil;
 import ru.itis.utils.mapper.CountryMapper;
 
 import java.util.HashSet;
@@ -26,8 +27,10 @@ public class CountryServiceImpl implements CountryService {
 
 
     @Override
-    public CountryPage getCountries(Integer page) {
-        PageRequest pageRequest = PageRequest.of(page, defaultPageSize);
+    public CountryPage getCountries(Integer page, Integer pageSize) {
+
+        pageSize = PageSizeUtil.processPageSize(pageSize, defaultPageSize);
+        PageRequest pageRequest = PageRequest.of(page, pageSize);
         Page<Country> countryPage = countryRepository.findAll(pageRequest);
 
         return CountryPage.builder()

@@ -14,7 +14,7 @@ public class GenreController implements GenreApi {
     private final GenreService genreService;
 
     @Override
-    public GenrePage getGenres(Integer page) {
-        return genreService.getGenres(page);
+    public GenrePage getGenres(Integer page, Integer pageSize) {
+        return genreService.getGenres(page, pageSize);
     }
 }

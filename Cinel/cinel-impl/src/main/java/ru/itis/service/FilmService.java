@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public interface FilmService {
 
-    FilmPage getFilms(FilterSearchRequest filmRequest, Integer page);
+    FilmPage getFilms(FilterSearchRequest filmRequest, Integer page, Integer pageSize);
 
     Film getById(UUID id);
 

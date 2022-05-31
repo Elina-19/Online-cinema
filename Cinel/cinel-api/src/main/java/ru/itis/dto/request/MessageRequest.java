@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class AccountRequest {
-    private String roomCode;
+@NoArgsConstructor
+public class MessageRequest {
+
+    private String text;
+
 }
