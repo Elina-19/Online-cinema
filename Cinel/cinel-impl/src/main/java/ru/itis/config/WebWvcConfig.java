@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -72,6 +73,12 @@ public class WebWvcConfig implements WebMvcConfigurer {
     }
 
     @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+
+        return resolver;
+    }
+  
     public ViewResolver viewResolver() {
         FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
         viewResolver.setPrefix("");
