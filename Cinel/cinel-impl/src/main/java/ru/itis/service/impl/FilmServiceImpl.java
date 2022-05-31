@@ -20,6 +20,7 @@ import ru.itis.utils.PageSizeUtil;
 import ru.itis.utils.mapper.FilmMapper;
 import ru.itis.exception.FilmNotExistException;
 
+import java.io.OutputStream;
 import java.util.UUID;
 
 

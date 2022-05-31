@@ -16,11 +16,13 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 
         springWebContext.register(WebWvcConfig.class);
         springWebContext.register(DataBaseConfig.class);
+        springWebContext.register(StompConfig.class);
         servletContext.addListener(new ContextLoaderListener(springWebContext));
 
         ServletRegistration.Dynamic dispatcherServlet =
                 servletContext.addServlet("dispatcher", new DispatcherServlet(springWebContext));
         dispatcherServlet.setLoadOnStartup(1);
         dispatcherServlet.addMapping("/");
+        dispatcherServlet.setAsyncSupported(true);
     }
 }
