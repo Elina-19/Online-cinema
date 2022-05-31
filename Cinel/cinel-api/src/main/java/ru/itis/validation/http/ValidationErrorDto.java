@@ -1,4 +1,4 @@
-package ru.itis.dto.request;
+package ru.itis.validation.http;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -6,20 +6,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-import java.util.Set;
-import java.util.UUID;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FilmFilterRequest {
+public class ValidationErrorDto {
 
-    private Integer year;
+    @Schema(example = "username")
+    private String field;
 
-    private Set<UUID> countriesIds;
-
-    private Set<UUID> genresIds;
-
+    @Schema(example = "Username can not be empty")
+    private String message;
 }
+
