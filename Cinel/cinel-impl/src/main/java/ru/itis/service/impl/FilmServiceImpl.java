@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.dto.request.FilmRequest;
@@ -20,6 +21,7 @@ import ru.itis.utils.PageSizeUtil;
 import ru.itis.utils.mapper.FilmMapper;
 import ru.itis.exception.FilmNotExistException;
 
+import java.io.OutputStream;
 import java.util.UUID;
 
 
@@ -60,9 +62,10 @@ public class FilmServiceImpl implements FilmService {
 
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
-    public FilmResponse addFilm(FilmRequest film, MultipartFile file) {
-        FileInfo fileInfo = fileService.upload(file);
+    public FilmResponse addFilm(FilmRequest film) {
+        FileInfo fileInfo = fileService.upload(film.getFile());
         Film newFilm = filmMapper.toEntity(film);
         newFilm.setFileInfo(fileInfo);
         return filmMapper.toResponse(newFilm);

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.exception.UploadFailException;
+import org.springframework.http.ResponseEntity;
+import ru.itis.exception.FileNotFoundException;
 import ru.itis.model.FileInfo;
 import ru.itis.repository.FileInfoRepository;
 import ru.itis.service.FileService;
@@ -43,6 +45,24 @@ public class FileServiceImpl implements FileService {
             return fileInfoRepository.save(file);
         } catch (IOException ex) {
             throw new UploadFailException("Cant upload file " + multipart.getOriginalFilename());
+        }
+    }
+
+    public ResponseEntity<byte[]> getFile(String fileName) {
+        FileInfo fileInfo = fileInfoRepository
+                .findByStorageFileName(fileName)
+                .orElseThrow(FileNotFoundException::new);
+
+        try{
+            byte[] file =  Files.readAllBytes(
+                    Paths.get(storagePath, fileName));
+
+            return ResponseEntity.ok()
+                    .header("Content-Type", fileInfo.getMimeType())
+                    .header("Content-Length", fileInfo.getSize().toString())
+                    .body(file);
+        }catch (IOException e){
+            throw new FileNotFoundException();
         }
     }
 }

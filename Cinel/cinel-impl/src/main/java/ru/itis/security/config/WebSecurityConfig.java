@@ -1,10 +1,6 @@
 package ru.itis.security.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -13,16 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
-import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.itis.security.filter.TokenAuthorizationFilter;
 import ru.itis.security.filter.TokenLogoutFilter;
 import ru.itis.security.userdetails.TokenAuthenticationUserDetailsService;
 import ru.itis.service.BlackListService;
 import ru.itis.service.JwtTokenService;
-
-import java.util.Collections;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -34,6 +26,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final BlackListService blackListService;
 
     private static final String[] PERMIT_ALL = {
+            "/websocket",
             "/api/v1/login",
             "/api/v1/token/user-info",
             "/api/v1/token/refresh"
@@ -58,6 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .addFilterAfter(tokenAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(logoutFilter(), LogoutFilter.class)
+                .authenticationProvider(authenticationProvider())
                 .authorizeRequests()
                     .antMatchers(PERMIT_ALL).permitAll()
                     .and()
@@ -66,6 +60,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .formLogin().disable()
                 .httpBasic().disable();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        PreAuthenticatedAuthenticationProvider authenticationProvider = new PreAuthenticatedAuthenticationProvider();
+        authenticationProvider.setPreAuthenticatedUserDetailsService(authorizationUserDetailsService);
+        authenticationProvider.setThrowExceptionWhenTokenRejected(false);
+
+        return authenticationProvider;
+    }
+
+    @Override
+    protected AuthenticationManager authenticationManager() {
+        return new ProviderManager(Collections.singletonList(authenticationProvider()));
     }
 
     public OncePerRequestFilter tokenAuthorizationFilter() {
