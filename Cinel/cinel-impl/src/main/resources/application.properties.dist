@@ -23,5 +23,5 @@ jwt.expiration.refresh.mills=86400000
 #Cinel
 cinel.default-page-size=7
 
-cinel.confirm-email.link=/api/v1/confirm/
+cinel.confirm-email.link=/cinel/api/v1/confirm/
 cinel.confirm-code.seconds=300

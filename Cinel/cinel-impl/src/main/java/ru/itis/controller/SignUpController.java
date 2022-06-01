@@ -17,13 +17,11 @@ import java.util.UUID;
 @RestController
 public class SignUpController implements SignUpApi {
 
-    private final ServletRequest sr;
-
     private final SignUpService signUpService;
 
     @Override
     public UUID signUp(SignUpRequest signUpRequest) {
-        return signUpService.signUp(signUpRequest, sr.getRemoteHost() + ":" + sr.getServerPort());
+        return signUpService.signUp(signUpRequest);
     }
 
 }

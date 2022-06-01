@@ -29,7 +29,7 @@ public class SignUpServiceImpl implements SignUpService {
     private long expirationConfirmCode;
 
     @Value("${cinel.confirm-email.link}")
-    private long confirmLink;
+    private String confirmLink;
 
     private final AccountRepository accountRepository;
 
@@ -39,7 +39,7 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Transactional
     @Override
-    public UUID signUp(SignUpRequest signUpRequest, String path) {
+    public UUID signUp(SignUpRequest signUpRequest) {
 
         if (accountRepository.existsByEmailOrUsername(
                 signUpRequest.getEmail(), signUpRequest.getUsername())){
@@ -61,7 +61,7 @@ public class SignUpServiceImpl implements SignUpService {
 
         Map<String, String> map = new HashMap<>();
         map.put("username", account.getUsername());
-        map.put("confirmLink", path + confirmLink + account.getCode());
+        map.put("confirmLink", confirmLink + account.getCode());
 
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.submit(
