@@ -29,7 +29,7 @@ public class SignUpServiceImpl implements SignUpService {
     private long expirationConfirmCode;
 
     @Value("${cinel.confirm-email.link}")
-    private long confirmLink;
+    private String confirmLink;
 
     private final AccountRepository accountRepository;
 

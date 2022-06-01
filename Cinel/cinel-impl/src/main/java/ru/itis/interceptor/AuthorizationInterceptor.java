@@ -9,12 +9,12 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.util.MultiValueMap;
-import ru.itis.exception.AuthenticationHeaderException;
-import ru.itis.exception.IrrelevantTokenException;
+import ru.itis.exception.token.AuthenticationHeaderException;
+import ru.itis.exception.token.IrrelevantTokenException;
 import ru.itis.security.utils.AuthorizationHeaderHelper;
 import ru.itis.service.JwtTokenService;
 
@@ -27,7 +27,7 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 @RequiredArgsConstructor
 public class AuthorizationInterceptor implements ChannelInterceptor {
 
-    private final UserDetailsService accountUserDetailsService;
+    private final AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> accountUserDetailsService;
 
     private final JwtTokenService jwtTokenService;
 
@@ -52,8 +52,12 @@ public class AuthorizationInterceptor implements ChannelInterceptor {
                         throw new IrrelevantTokenException(token, "Token is irrelevant");
                     }
 
-                    UserDetails userDetails = accountUserDetailsService.loadUserByUsername(token);
-                    PreAuthenticatedAuthenticationToken authenticationToken = new PreAuthenticatedAuthenticationToken(
+                    PreAuthenticatedAuthenticationToken authenticationToken =
+                            new PreAuthenticatedAuthenticationToken(null, token);
+
+                    UserDetails userDetails = accountUserDetailsService.loadUserDetails(authenticationToken);
+
+                    authenticationToken = new PreAuthenticatedAuthenticationToken(
                             userDetails, token, userDetails.getAuthorities());
 
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);

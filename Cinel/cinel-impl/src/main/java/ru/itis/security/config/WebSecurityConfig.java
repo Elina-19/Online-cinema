@@ -1,6 +1,10 @@
 package ru.itis.security.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -9,12 +13,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.web.filter.OncePerRequestFilter;
 import ru.itis.security.filter.TokenAuthorizationFilter;
 import ru.itis.security.filter.TokenLogoutFilter;
 import ru.itis.security.userdetails.TokenAuthenticationUserDetailsService;
 import ru.itis.service.BlackListService;
 import ru.itis.service.JwtTokenService;
+
+import java.util.Collections;
 
 @RequiredArgsConstructor
 @EnableWebSecurity

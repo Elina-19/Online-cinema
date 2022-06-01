@@ -78,7 +78,8 @@ public class WebWvcConfig implements WebMvcConfigurer {
 
         return resolver;
     }
-  
+
+    @Bean
     public ViewResolver viewResolver() {
         FreeMarkerViewResolver viewResolver = new FreeMarkerViewResolver();
         viewResolver.setPrefix("");
