@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dto.request.FilmRequest;
 import ru.itis.dto.request.FilterSearchRequest;
@@ -40,6 +39,17 @@ public interface FilmApi{
                       @RequestParam(required = false, name = "page_size") Integer pageSize);
 
 
+    @Operation(summary = "Adding film")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "New film",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    schema =
+                                    @Schema(implementation = FilmResponse.class)
+                            )
+                    }
+            )
+    })
     @ApiImplicitParam(name = "Authorization", paramType = "header")
     @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

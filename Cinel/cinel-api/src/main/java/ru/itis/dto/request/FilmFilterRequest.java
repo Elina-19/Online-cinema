@@ -16,6 +16,7 @@ import java.util.UUID;
 @Builder
 public class FilmFilterRequest {
 
+    @Schema(description = "Year of creation", example = "2002")
     private Integer year;
 
     private Set<UUID> countriesIds;
