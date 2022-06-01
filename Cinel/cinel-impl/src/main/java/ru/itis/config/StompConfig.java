@@ -6,7 +6,8 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.socket.config.annotation.*;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 import ru.itis.interceptor.AuthorizationInterceptor;
@@ -18,7 +19,7 @@ import ru.itis.service.JwtTokenService;
 public class StompConfig implements WebSocketMessageBrokerConfigurer {
 
     @Autowired
-    private UserDetailsService accountUserDetailsService;
+    private AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> accountUserDetailsService;
 
     @Autowired
     private JwtTokenService jwtTokenService;
