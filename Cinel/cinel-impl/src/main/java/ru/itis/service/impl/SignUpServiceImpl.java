@@ -85,6 +85,8 @@ public class SignUpServiceImpl implements SignUpService {
             }
 
             account.setConfirmed(true);
+            account.setIsActive(true);
+
             accountRepository.save(account);
 
         } else {

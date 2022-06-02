@@ -14,6 +14,12 @@ public interface FilmService {
 
     Film getById(UUID id);
 
+    FilmResponse getFilmResponseById(UUID id);
+
     FilmResponse addFilm(FilmRequest film);
+
+    FilmResponse updateById(UUID id, FilmRequest filmRequest);
+
+    void deleteById(UUID id);
 
 }

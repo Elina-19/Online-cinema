@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ru.itis.dto.request.FilmRequest;
 import ru.itis.dto.request.FilterSearchRequest;
@@ -62,6 +63,11 @@ public class FilmServiceImpl implements FilmService {
 
     }
 
+    @Override
+    public FilmResponse getFilmResponseById(UUID id) {
+        return null;
+    }
+
     @PreAuthorize("hasRole('ADMIN')")
     @Override
     public FilmResponse addFilm(FilmRequest film) {
@@ -69,5 +75,25 @@ public class FilmServiceImpl implements FilmService {
         Film newFilm = filmMapper.toEntity(film);
         newFilm.setFileInfo(fileInfo);
         return filmMapper.toResponse(newFilm);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
+    @Override
+    public FilmResponse updateById(UUID id, FilmRequest filmRequest) {
+        Film film = getById(id);
+        FileInfo fileInfo = fileService.upload(filmRequest.getFile());
+
+        Film newFilm = filmMapper.toEntity(filmRequest);
+        newFilm.setId(film.getId());
+        newFilm.setFileInfo(fileInfo);
+
+        return filmMapper.toResponse(newFilm);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @Override
+    public void deleteById(UUID id) {
+        filmRepository.deleteById(id);
     }
 }

@@ -15,11 +15,28 @@ import ru.itis.dto.request.FilterSearchRequest;
 import ru.itis.dto.response.FilmResponse;
 import ru.itis.dto.response.page.FilmPage;
 
+import javax.validation.Valid;
+import java.util.UUID;
+
 import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RequestMapping("/api/v1/films")
 public interface FilmApi{
+
+    @GetMapping(value = "/{film-id}", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    FilmResponse getFilmById(@PathVariable("film-id") UUID filmId);
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header")
+    @PutMapping(value = "/{film-id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    FilmResponse updateById(@PathVariable("film-id") UUID filmId, @Valid @RequestBody FilmRequest filmRequest);
+
+    @ApiImplicitParam(name = "Authorization", paramType = "header")
+    @DeleteMapping(value = "/{film-id}")
+    @ResponseStatus(HttpStatus.OK)
+    void deleteById(@PathVariable("film-id") UUID filmId);
 
     @Operation(summary = "Getting films with pagination by filter and search")
     @ApiResponses(value = {
@@ -43,6 +60,6 @@ public interface FilmApi{
     @ApiImplicitParam(name = "Authorization", paramType = "header")
     @PostMapping(consumes = MULTIPART_FORM_DATA_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    FilmResponse addFilm(FilmRequest film);
+    FilmResponse addFilm(@Valid FilmRequest film);
 
 }

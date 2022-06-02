@@ -7,12 +7,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.itis.dto.response.AccountResponse;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.UUID;
 
 @RequestMapping("/api/v1/account")
 public interface AccountApi<PRINCIPAL> {
+
+    @GetMapping("/{account-id}")
+    @ResponseStatus(HttpStatus.OK)
+    AccountResponse getById(@PathVariable("account-id") UUID id);
 
     @Operation(summary = "Joining a movie viewing room")
     @ApiResponses(value = {

@@ -14,6 +14,8 @@ public interface AccountService {
 
     Account getById(UUID id);
 
+    AccountResponse getAccountResponseById(UUID id);
+
     Account save(Account account);
 
     void joinToRoom(UUID accountId, String roomCode);

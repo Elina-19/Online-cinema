@@ -52,6 +52,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public AccountResponse getAccountResponseById(UUID id) {
+        return accountMapper.toResponse(getById(id));
+    }
+
+    @Override
     public Account save(Account account) {
         return accountRepository.save(account);
     }
