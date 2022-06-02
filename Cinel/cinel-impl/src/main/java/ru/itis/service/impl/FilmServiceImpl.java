@@ -7,7 +7,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import ru.itis.dto.request.FilmRequest;
 import ru.itis.dto.request.FilterSearchRequest;
 import ru.itis.dto.response.FilmResponse;
@@ -22,7 +21,6 @@ import ru.itis.utils.PageSizeUtil;
 import ru.itis.utils.mapper.FilmMapper;
 import ru.itis.exception.FilmNotExistException;
 
-import java.io.OutputStream;
 import java.util.UUID;
 
 
@@ -74,7 +72,7 @@ public class FilmServiceImpl implements FilmService {
         FileInfo fileInfo = fileService.upload(film.getFile());
         Film newFilm = filmMapper.toEntity(film);
         newFilm.setFileInfo(fileInfo);
-        return filmMapper.toResponse(newFilm);
+        return filmMapper.toResponse(filmRepository.save(newFilm));
     }
 
     @PreAuthorize("hasRole('ADMIN')")

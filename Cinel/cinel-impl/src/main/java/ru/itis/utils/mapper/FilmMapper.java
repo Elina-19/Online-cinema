@@ -15,6 +15,8 @@ public interface FilmMapper {
 
     List<FilmResponse> toResponses(List<Film> films);
 
+    @Mapping(target = "countries", source = "countriesIds")
+    @Mapping(target = "genres", source = "genresIds")
     @Mapping(target = "fileInfo", ignore = true)
     @Mapping(target = "id", ignore = true)
     Film toEntity(FilmRequest film);

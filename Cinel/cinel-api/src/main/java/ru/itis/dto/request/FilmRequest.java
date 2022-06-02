@@ -19,16 +19,17 @@ import java.util.UUID;
 @Schema(description = "Film")
 public class FilmRequest {
 
-    @NotBlank(message = "Name can not be empty")
-    @Size(min = 1, max = 50, message = "Min length of film's name is {min}, max length is {max}")
-    @Schema(description = "Name", example = "The maze runner")
+    @Schema(description = "Name", example = "Pirates of the Caribbean")
     private String name;
 
-    @Schema(description = "Description")
+    @Schema(description = "Description", example = "Pirates of the Caribbean is a Disney media franchise" +
+            " encompassing numerous theme park rides, a series of films")
     private String description;
 
+    @Schema(description = "Video file")
     private MultipartFile file;
 
+    @Schema(description = "Year of creation", example = "2022")
     private Integer year;
 
     private Set<UUID> countriesIds;
