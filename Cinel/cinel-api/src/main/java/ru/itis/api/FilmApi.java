@@ -28,14 +28,9 @@ public interface FilmApi{
     FilmResponse getFilmById(@PathVariable("film-id") UUID filmId);
 
     @ApiImplicitParam(name = "Authorization", paramType = "header")
-    @PutMapping(value = "/{film-id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{film-id}", consumes = MULTIPART_FORM_DATA_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    FilmResponse updateById(@PathVariable("film-id") UUID filmId, @Valid @RequestBody FilmRequest filmRequest);
-
-    @ApiImplicitParam(name = "Authorization", paramType = "header")
-    @DeleteMapping(value = "/{film-id}")
-    @ResponseStatus(HttpStatus.OK)
-    void deleteById(@PathVariable("film-id") UUID filmId);
+    FilmResponse updateById(@PathVariable("film-id") UUID filmId, @Valid FilmRequest filmRequest);
 
     @Operation(summary = "Getting films with pagination by filter and search")
     @ApiResponses(value = {

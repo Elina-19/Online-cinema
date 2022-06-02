@@ -2,6 +2,7 @@ package ru.itis.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +12,7 @@ import ru.itis.dto.request.FilmRequest;
 import ru.itis.dto.request.FilterSearchRequest;
 import ru.itis.dto.response.FilmResponse;
 import ru.itis.dto.response.page.FilmPage;
+import ru.itis.exception.CinelBadRequestException;
 import ru.itis.model.FileInfo;
 import ru.itis.model.Film;
 import ru.itis.repository.FilmRepository;
@@ -63,7 +65,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public FilmResponse getFilmResponseById(UUID id) {
-        return null;
+        return filmMapper.toResponse(getById(id));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -72,7 +74,14 @@ public class FilmServiceImpl implements FilmService {
         FileInfo fileInfo = fileService.upload(film.getFile());
         Film newFilm = filmMapper.toEntity(film);
         newFilm.setFileInfo(fileInfo);
-        return filmMapper.toResponse(filmRepository.save(newFilm));
+
+        try {
+            newFilm = filmRepository.save(newFilm);
+        } catch (DataIntegrityViolationException ex) {
+            throw new CinelBadRequestException("There is no data corresponding to entered ID in database");
+        }
+
+        return filmMapper.toResponse(newFilm);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -87,11 +96,5 @@ public class FilmServiceImpl implements FilmService {
         newFilm.setFileInfo(fileInfo);
 
         return filmMapper.toResponse(newFilm);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    @Override
-    public void deleteById(UUID id) {
-        filmRepository.deleteById(id);
     }
 }

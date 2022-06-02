@@ -20,6 +20,4 @@ public interface FilmService {
 
     FilmResponse updateById(UUID id, FilmRequest filmRequest);
 
-    void deleteById(UUID id);
-
 }

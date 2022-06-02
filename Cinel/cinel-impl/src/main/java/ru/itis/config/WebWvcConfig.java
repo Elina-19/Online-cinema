@@ -74,9 +74,7 @@ public class WebWvcConfig implements WebMvcConfigurer {
 
     @Bean
     public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-
-        return resolver;
+        return new CommonsMultipartResolver();
     }
 
     @Bean

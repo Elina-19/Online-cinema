@@ -30,11 +30,6 @@ public class FilmController implements FilmApi {
     }
 
     @Override
-    public void deleteById(UUID filmId) {
-        filmService.deleteById(filmId);
-    }
-
-    @Override
     public FilmPage getFilms(FilterSearchRequest request, Integer page, Integer pageSize) {
         return filmService.getFilms(request, page, pageSize);
     }

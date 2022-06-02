@@ -19,11 +19,15 @@ import java.util.UUID;
 @Schema(description = "Film")
 public class FilmRequest {
 
+    @NotBlank
+    @Size(min = 1, max = 100, message = "Min length of name is {min}, max length is {max}")
     @Schema(description = "Name", example = "Pirates of the Caribbean")
     private String name;
 
+    @NotBlank
+    @Size(min = 1, max = 255, message = "Min length of description is {min}, max length is {max}")
     @Schema(description = "Description", example = "Pirates of the Caribbean is a Disney media franchise" +
-            " encompassing numerous theme park rides, a series of films")
+            " encompassing numerous theme park rides")
     private String description;
 
     @Schema(description = "Video file")
