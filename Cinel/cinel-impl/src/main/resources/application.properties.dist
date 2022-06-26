@@ -1,0 +1,27 @@
+#DB Properties
+db.url=jdbc:postgresql://localhost:5432/cinel_db
+db.user=postgres
+db.password=
+db.driver-class-name=org.postgresql.Driver
+db.hikari.pool-size=20
+
+#Hibernate Configuration
+hibernate.dialect=org.hibernate.dialect.PostgreSQL10Dialect
+hibernate.hbm2ddl.auto=none
+hibernate.format_sql=true
+hibernate.show_sql=true
+hibernate.enable_lazy_load_no_trans=true
+
+#Files
+files.storage.path=
+
+#jwt
+jwt.secret=secret_key
+jwt.expiration.access.mills=600000
+jwt.expiration.refresh.mills=86400000
+
+#Cinel
+cinel.default-page-size=7
+
+cinel.confirm-email.link=http://localhost:8080/cinel/api/v1/confirm/
+cinel.confirm-code.seconds=300

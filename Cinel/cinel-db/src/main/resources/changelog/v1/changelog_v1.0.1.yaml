@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: 20220330_init_db.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: 20220330_add_unique_constraints_db.yaml
+      relativeToChangelogFile: true
